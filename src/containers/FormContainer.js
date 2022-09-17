@@ -66,7 +66,7 @@ function FormContainer() {
       );
       dispatch(initializeEditList());
     },
-    [editList, comment]
+    [editList, comment, formInfo]
   );
 
   useEffect(() => {

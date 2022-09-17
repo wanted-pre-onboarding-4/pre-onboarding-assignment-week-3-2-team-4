@@ -64,13 +64,13 @@ export const putComment =
   async (dispatch) => {
     dispatch({ type: PUT_COMMENT });
     try {
-      await commentApi.put({
-        id,
-        profile_url,
-        author,
-        content,
-        createdAt,
-      });
+      // await commentApi.put({
+      //   id,
+      //   profile_url,
+      //   author,
+      //   content,
+      //   createdAt,
+      // });
       dispatch({
         type: PUT_COMMENT_SUCCESS,
         fixComment: { id, info: { profile_url, author, content, createdAt } },
@@ -126,7 +126,9 @@ const commentReducer = (state = initialStore, action) => {
       return {
         ...state,
         loading: false,
-        data: state.data.filter((comment) => comment.id !== action.id),
+        data: state.data.map((comment) =>
+          comment.id !== action.id ? comment : action.info
+        ),
       };
     case DELETE_COMMENT_ERROR:
       return {
@@ -143,7 +145,9 @@ const commentReducer = (state = initialStore, action) => {
       return {
         ...state,
         loading: false,
-        data: state.data.filter((comment) => comment.id !== action.id),
+        data: state.data.map((comment) =>
+          comment.id !== action.fixComment.id ? comment : action.fixComment.info
+        ),
       };
     case PUT_COMMENT_ERROR:
       return {
