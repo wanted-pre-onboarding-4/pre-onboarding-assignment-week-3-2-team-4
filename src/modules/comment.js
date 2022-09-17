@@ -37,26 +37,28 @@ export const deleteComment = (comment_id) => async (dispatch) => {
   }
 };
 
+export const postComment = (config) => async (dispatch) => {
+  dispatch({ type: POST_COMMENT });
+  try {
+    await commentApi.postComment(config);
+    dispatch({ type: POST_COMMENT_SUCCESS });
+  } catch (e) {
+    dispatch({ type: POST_COMMENT_ERROR, error: e });
+  }
+};
+
 const commentReducer = (state = reducerUtils.initialStore, action) => {
   switch (action.type) {
     case GET_COMMENTS:
       return {
-        // ...state,
-        // loading: true,
         ...reducerUtils.loading(),
       };
     case GET_COMMENTS_SUCCESS:
       return {
-        // ...state,
-        // loading: false,
-        // data: action.comments,
         ...reducerUtils.success(action),
       };
     case GET_COMMENTS_ERROR:
       return {
-        // ...state,
-        // loading: false,
-        // error: action.error,
         ...reducerUtils.error(action),
       };
 
@@ -69,6 +71,19 @@ const commentReducer = (state = reducerUtils.initialStore, action) => {
         ...reducerUtils.success(null),
       };
     case DELETE_COMMENT_ERROR:
+      return {
+        ...reducerUtils.error(action),
+      };
+
+    case POST_COMMENT:
+      return {
+        ...reducerUtils.loading(),
+      };
+    case POST_COMMENT_SUCCESS:
+      return {
+        ...reducerUtils.success(null),
+      };
+    case POST_COMMENT_ERROR:
       return {
         ...reducerUtils.error(action),
       };

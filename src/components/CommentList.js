@@ -13,7 +13,6 @@ function CommentList({ comment, onClickDelete }) {
           삭제
         </button>
       </Button>
-
       <hr />
     </Comment>
   );

@@ -7,4 +7,5 @@ const api = axios.create({
 export const commentApi = {
   getList: () => api.get(),
   deleteComment: (comment_id) => api.delete(`/${comment_id}`),
+  postComment: (config) => api.post("", config),
 };

@@ -44,7 +44,7 @@ function App() {
         </>
       )}
 
-      <FormContainer />
+      <FormContainer setPage={setPage} />
     </div>
   );
 }
