@@ -7,19 +7,18 @@ import {
 
 import commentServices from "../services/comment";
 
-export const createComment =
-	(comment) => async (dispatch) => {
-		try {
-			const res = await commentServices.create(comment);
-			dispatch({
-				type: CREATE_COMMENT,
-				payload: res.data,
-			});
-			return Promise.resolve(res.data);
-		} catch (err) {
-			return Promise.reject(err);
-		}
-	};
+export const createComment = (comment) => async (dispatch) => {
+	try {
+		const res = await commentServices.create(comment);
+		dispatch({
+			type: CREATE_COMMENT,
+			payload: res.data,
+		});
+		return await res.data;
+	} catch (err) {
+		return await err;
+	}
+};
 
 export const getComments = () => async (dispatch) => {
 	try {
@@ -33,20 +32,21 @@ export const getComments = () => async (dispatch) => {
 	}
 };
 
-export const updateComment = (commentId, updatedComment) => async (dispatch) => {
-	try {
-		const res = await commentServices.update(commentId, updatedComment);
+export const updateComment =
+	(commentId, updatedComment) => async (dispatch) => {
+		try {
+			const res = await commentServices.update(commentId, updatedComment);
 
-		dispatch({
-			type: UPDATE_COMMENT,
-			payload: updatedComment,
-		});
+			dispatch({
+				type: UPDATE_COMMENT,
+				payload: updatedComment,
+			});
 
-		return Promise.resolve(res.data);
-	} catch (err) {
-		return Promise.reject(err);
-	}
-};
+			return await res.data;
+		} catch (err) {
+			return await err;
+		}
+	};
 
 export const deleteComment = (commentId) => async (dispatch) => {
 	try {
