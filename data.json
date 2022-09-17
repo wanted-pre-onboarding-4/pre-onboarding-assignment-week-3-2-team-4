@@ -1,11 +1,11 @@
 {
   "comments": [
     {
-      "id": 3,
       "profile_url": "https://picsum.photos/id/3/50/50",
       "author": "abc_3",
-      "content": "코드에러가 발생했는데 어딘지 모르겠어요",
-      "createdAt": "2022-03-03"
+      "content": "코드에러가 발생했는데 어딘지 모르겠어요  제발 알려주세요",
+      "createdAt": "2022-03-03",
+      "id": 3
     },
     {
       "id": 4,

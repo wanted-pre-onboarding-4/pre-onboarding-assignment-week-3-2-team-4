@@ -64,13 +64,13 @@ export const putComment =
   async (dispatch) => {
     dispatch({ type: PUT_COMMENT });
     try {
-      // await commentApi.put({
-      //   id,
-      //   profile_url,
-      //   author,
-      //   content,
-      //   createdAt,
-      // });
+      await commentApi.put({
+        id,
+        profile_url,
+        author,
+        content,
+        createdAt,
+      });
       dispatch({
         type: PUT_COMMENT_SUCCESS,
         fixComment: { id, info: { profile_url, author, content, createdAt } },
