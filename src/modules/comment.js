@@ -8,9 +8,13 @@ const POST_COMMENT = "comment/POST_COMMENT";
 const POST_COMMENT_SUCCESS = "comment/POST_COMMENT_SUCCESS";
 const POST_COMMENT_ERROR = "comment/POST_COMMENT_ERROR";
 
-const PUT_COMMENT = "comment/PUT_COMMENT";
-const PUT_COMMENT_SUCCESS = "comment/PUT_COMMENT_SUCCESS";
-const PUT_COMMENT_ERROR = "comment/PUT_COMMENT_ERROR";
+const UPDATE_COMMENT = "comment/UPDATE_COMMENT";
+const UPDATE_COMMENT_SUCCESS = "comment/UPDATE_COMMENT_SUCCESS";
+const UPDATE_COMMENT_ERROR = "comment/UPDATE_COMMENT_ERROR";
+
+const UPDATE_PREV_COMMENT = "comment/UPDATE_PREV_COMMENT";
+const UPDATE_PREV_COMMENT_SUCCESS = "comment/UPDATE_PREV_COMMENT_SUCCESS";
+const UPDATE_PREV_COMMENT_ERROR = "comment/UPDATE_PREV_COMMENT_ERROR";
 
 const DELETE_COMMENT = "comment/DELETE_COMMENT";
 const DELETE_COMMENT_SUCCESS = "comment/DELETE_COMMENT_SUCCESS";
@@ -18,8 +22,18 @@ const DELETE_COMMENT_ERROR = "comment/DELETE_COMMENT_ERROR";
 
 const initialStore = {
   data: [],
+  updatedData: {},
   loading: false,
   error: null,
+};
+
+export const getPrevComment = (formData) => async (dispatch) => {
+  dispatch({ type: UPDATE_PREV_COMMENT });
+  try {
+    dispatch({ type: UPDATE_PREV_COMMENT_SUCCESS, updatedData: formData });
+  } catch (e) {
+    dispatch({ type: UPDATE_PREV_COMMENT_ERROR, error: e });
+  }
 };
 
 export const getComments = () => async (dispatch) => {
@@ -50,6 +64,17 @@ export const deleteComment = (commentId) => async (dispatch) => {
     dispatch({ type: DELETE_COMMENT_SUCCESS });
   } catch (e) {
     dispatch({ type: DELETE_COMMENT_ERROR, error: e });
+  }
+};
+
+export const updateComment = (commentId, bodyData) => async (dispatch) => {
+  dispatch({ type: UPDATE_COMMENT });
+  try {
+    await commentApi.updateComment(commentId, bodyData);
+    const { data } = await commentApi.getAllComments();
+    dispatch({ type: UPDATE_COMMENT_SUCCESS, comments: data });
+  } catch (e) {
+    dispatch({ type: UPDATE_COMMENT_ERROR });
   }
 };
 
@@ -100,6 +125,42 @@ const commentReducer = (state = initialStore, action) => {
         loading: false,
       };
     case DELETE_COMMENT_ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: action.error,
+      };
+    case UPDATE_COMMENT:
+      return {
+        ...state,
+        loading: true,
+      };
+    case UPDATE_COMMENT_SUCCESS:
+      return {
+        ...state,
+        data: [...action.comments],
+        loading: false,
+        updateComment: {},
+      };
+    case UPDATE_COMMENT_ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: action.error,
+        updateComment: {},
+      };
+    case UPDATE_PREV_COMMENT:
+      return {
+        ...state,
+        loading: true,
+      };
+    case UPDATE_PREV_COMMENT_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        updatedData: Object.assign({}, action.updatedData),
+      };
+    case UPDATE_PREV_COMMENT_ERROR:
       return {
         ...state,
         loading: false,

@@ -1,8 +1,5 @@
 import React from "react";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { postComment } from "../modules/comment";
 
 const FormStyle = styled.div`
   & > form {
@@ -27,17 +24,19 @@ const FormStyle = styled.div`
   }
 `;
 
-function Form({ formData, handleInput, handleCommentPost }) {
+function Form({ setIsEdit, isEdit, formData, handleInput, handleCommentPost }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     handleCommentPost();
+    setIsEdit(false);
   };
   return (
     <FormStyle>
       <form onSubmit={handleSubmit}>
         <input
-          onChange={(e) => handleInput(e.target.name, e.target.value)}
+          onChange={handleInput}
           value={formData.profileUrl}
+          default
           type='text'
           name='profileUrl'
           placeholder='https://picsum.photos/id/1/50/50'
@@ -45,7 +44,7 @@ function Form({ formData, handleInput, handleCommentPost }) {
         />
         <br />
         <input
-          onChange={(e) => handleInput(e.target.name, e.target.value)}
+          onChange={handleInput}
           value={formData.author}
           type='text'
           name='author'
@@ -53,7 +52,7 @@ function Form({ formData, handleInput, handleCommentPost }) {
         />
         <br />
         <textarea
-          onChange={(e) => handleInput(e.target.name, e.target.value)}
+          onChange={handleInput}
           value={formData.content}
           name='content'
           placeholder='내용'
@@ -61,7 +60,7 @@ function Form({ formData, handleInput, handleCommentPost }) {
         ></textarea>
         <br />
         <input
-          onChange={(e) => handleInput(e.target.name, e.target.value)}
+          onChange={handleInput}
           value={formData.createdAt}
           type='text'
           name='createdAt'
@@ -69,7 +68,7 @@ function Form({ formData, handleInput, handleCommentPost }) {
           required
         />
         <br />
-        <button type='submit'>등록</button>
+        <button type='submit'>{isEdit ? "수정" : "등록"}</button>
       </form>
     </FormStyle>
   );
