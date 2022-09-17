@@ -1,4 +1,4 @@
-import axios from "axios";
+import commentApi from "../api";
 
 const GET_COMMENTS = "comment/GET_COMMENT_LIST";
 const GET_COMMENTS_SUCCESS = "comment/GET_COMMENT_LIST_SUCCESS";
@@ -25,15 +25,29 @@ const initialStore = {
 export const getComments = () => async (dispatch) => {
   dispatch({ type: GET_COMMENTS }); // 요청이 시작됨  (로딩 시작);
   try {
-    const { data } = await axios.get(
-      "http://localhost:4000/comments" //
-    );
-
+    const { data } = await commentApi.get();
     dispatch({ type: GET_COMMENTS_SUCCESS, comments: data }); // 성공
   } catch (e) {
     dispatch({ type: GET_COMMENTS_ERROR, error: e }); // 실패
   }
 };
+
+export const postComments =
+  ({ profile_url, author, content, createdAt }) =>
+  async (dispatch) => {
+    dispatch({ type: POST_COMMENT });
+    try {
+      const { data } = await commentApi.post({
+        profile_url,
+        author,
+        content,
+        createdAt,
+      });
+      console.log(data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
 const commentReducer = (state = initialStore, action) => {
   switch (action.type) {

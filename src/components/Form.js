@@ -24,10 +24,10 @@ const FormStyle = styled.div`
   }
 `;
 
-function Form() {
+function Form({ onSubmit }) {
   return (
     <FormStyle>
-      <form>
+      <form onSubmit={onSubmit}>
         <input
           type="text"
           name="profile_url"
