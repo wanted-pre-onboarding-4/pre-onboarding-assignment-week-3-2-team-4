@@ -46,8 +46,8 @@ const data = [
   },
 ];
 
-function CommentList() {
-  return data.map((comment, key) => (
+function CommentList({ comments }) {
+  return comments.map((comment, key) => (
     <Comment key={key}>
       <img src={comment.profile_url} alt="" />
 
