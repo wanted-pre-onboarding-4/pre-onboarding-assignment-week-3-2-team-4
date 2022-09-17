@@ -2,7 +2,7 @@ import CommentList from "../components/CommentList";
 import { useDispatch } from "react-redux";
 import { getComments, deleteComment } from "../modules/comment";
 
-function CommentListContainer({ comment, setPage }) {
+function CommentListContainer({ comment, setPage, onClickToEdit }) {
   const dispatch = useDispatch();
 
   const onClickDelete = async (event) => {
@@ -11,7 +11,13 @@ function CommentListContainer({ comment, setPage }) {
     setPage(1);
   };
 
-  return <CommentList comment={comment} onClickDelete={onClickDelete} />;
+  return (
+    <CommentList
+      comment={comment}
+      onClickDelete={onClickDelete}
+      onClickToEdit={onClickToEdit}
+    />
+  );
 }
 
 export default CommentListContainer;

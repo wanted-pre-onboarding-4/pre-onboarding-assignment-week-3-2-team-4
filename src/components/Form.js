@@ -1,38 +1,12 @@
-import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { getToday } from "../util/dateFormat";
-import { useDispatch } from "react-redux";
-import { postComment, getComments } from "../modules/comment";
 
-const INITIAL_STATE = {
-  profile_url: "https://picsum.photos/id/1/50/50",
-  author: "",
-  content: "",
-  createdAt: getToday(),
-};
-
-function Form({ setPage }) {
-  const dispatch = useDispatch();
-  const [inputs, setInputs] = useState({ ...INITIAL_STATE });
-
-  const onChangeInputs = (event) => {
-    setInputs({
-      ...inputs,
-      [event.target.id]: event.target.value,
-    });
-  };
-
-  const onClickPost = async (e) => {
-    if (!inputs.author || !inputs.content) {
-      return alert("작성자, 내용 모두 입력해야합니다");
-    }
-    e.preventDefault();
-    dispatch(postComment(inputs));
-    dispatch(getComments());
-    setPage(1);
-    setInputs({ ...INITIAL_STATE });
-  };
-
+function Form({
+  editData,
+  inputs,
+  onChangeInputs,
+  onClickUpdate,
+  onClickPost,
+}) {
   return (
     <FormStyle>
       <form>
@@ -69,12 +43,12 @@ function Form({ setPage }) {
           type="text"
           name="createdAt"
           required
-          placeholder={getToday()}
+          placeholder={inputs.createdAt || editData?.createdAt}
           readOnly
         />
         <br />
-        <button type="submit" onClick={onClickPost}>
-          등록
+        <button type="submit" onClick={editData ? onClickUpdate : onClickPost}>
+          {editData ? "수정" : "등록"}
         </button>
       </form>
     </FormStyle>

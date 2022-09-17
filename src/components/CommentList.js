@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-function CommentList({ comment, onClickDelete }) {
+function CommentList({ comment, onClickDelete, onClickToEdit }) {
   return (
     <Comment>
       <img src={comment.profile_url} alt="" />
@@ -8,7 +8,9 @@ function CommentList({ comment, onClickDelete }) {
       <CreatedAt>{comment.createdAt}</CreatedAt>
       <Content>{comment.content}</Content>
       <Button>
-        <button>수정</button>
+        <button id={JSON.stringify(comment)} onClick={onClickToEdit}>
+          수정
+        </button>
         <button id={comment.id} onClick={onClickDelete}>
           삭제
         </button>

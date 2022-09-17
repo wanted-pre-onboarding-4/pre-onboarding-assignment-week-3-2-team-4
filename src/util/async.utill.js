@@ -4,7 +4,7 @@ export const reducerUtils = {
     data,
     error: null,
   }),
-  loading: (prevState = null) => ({
+  loading: (prevState) => ({
     data: prevState,
     loading: true,
     error: null,

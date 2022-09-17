@@ -64,6 +64,41 @@
       "createdAt": "2022-03-09"
     },
     {
+      "id": 10,
+      "profile_url": "https://picsum.photos/id/10/50/50",
+      "author": "abc_10",
+      "content": "storybook은 무엇인가요.",
+      "createdAt": "2022-03-10"
+    },
+    {
+      "id": 11,
+      "profile_url": "https://picsum.photos/id/11/50/50",
+      "author": "abc_11",
+      "content": "주변에 React 개발자 있나요",
+      "createdAt": "2022-03-11"
+    },
+    {
+      "id": 12,
+      "profile_url": "https://picsum.photos/id/12/50/50",
+      "author": "abc_12",
+      "content": "주변에 React 개발자 있나요 -> 넵",
+      "createdAt": "2022-03-12"
+    },
+    {
+      "id": 13,
+      "profile_url": "https://picsum.photos/id/13/50/50",
+      "author": "abc_13",
+      "content": "주변에 React 개발자 있나요",
+      "createdAt": "2022-03-13"
+    },
+    {
+      "id": 14,
+      "profile_url": "https://picsum.photos/id/14/50/50",
+      "author": "abc_14",
+      "content": "Next.js 가이드 주세요.14",
+      "createdAt": "2022-03-14"
+    },
+    {
       "id": 15,
       "profile_url": "https://picsum.photos/id/15/50/50",
       "author": "abc_15",
@@ -99,81 +134,32 @@
       "createdAt": "2022-03-19"
     },
     {
-      "profile_url": "https://picsum.photos/id/1/50/50",
-      "author": "fdasf",
-      "content": "fdsa",
-      "createdAt": "2022-9-17",
-      "id": 20
+      "id": 20,
+      "profile_url": "https://picsum.photos/id/20/50/50",
+      "author": "abc_20",
+      "content": "Form 처리는 어떻게 하면 깔끔할까요",
+      "createdAt": "2022-03-20"
     },
     {
-      "profile_url": "https://picsum.photos/id/1/50/50",
-      "author": "작성자",
-      "content": "dsfa",
-      "createdAt": "2022-9-17",
-      "id": 21
+      "id": 21,
+      "profile_url": "https://picsum.photos/id/21/50/50",
+      "author": "abc_21",
+      "content": "typescript도 배워 보려고 합니다. 어떻게 배우는게 빠를까요",
+      "createdAt": "2022-03-21"
     },
     {
-      "profile_url": "https://picsum.photos/id/1/50/50",
-      "author": "aa",
-      "content": "aa",
-      "createdAt": "2022-09-17",
-      "id": 22
+      "id": 22,
+      "profile_url": "https://picsum.photos/id/22/50/50",
+      "author": "abc_22",
+      "content": "주변에 React 개발자 있나요",
+      "createdAt": "2022-03-22"
     },
     {
-      "profile_url": "https://picsum.photos/id/1/50/50",
-      "author": "adf",
-      "content": "asdfsdfsdfasdf",
-      "createdAt": "2022-09-17",
+      "profile_url": "",
+      "author": "생성",
+      "content": "생성하기",
+      "createdAt": "2022-09-18",
       "id": 23
-    },
-    {
-      "profile_url": "https://picsum.photos/id/1/50/50",
-      "author": "asdfasdfdsfsdf",
-      "content": "asdfasdfsdfsdf",
-      "createdAt": "2022-09-17",
-      "id": 24
-    },
-    {
-      "profile_url": "https://picsum.photos/id/1/50/50",
-      "author": "등록",
-      "content": "등록입니다",
-      "createdAt": "2022-09-17",
-      "id": 25
-    },
-    {
-      "profile_url": "https://picsum.photos/id/1/50/50",
-      "author": "옛시₩",
-      "content": "예시입니다",
-      "createdAt": "2022-09-17",
-      "id": 26
-    },
-    {
-      "profile_url": "https://picsum.photos/id/1/50/50",
-      "author": "asdf",
-      "content": "asdfdfsd",
-      "createdAt": "2022-09-17",
-      "id": 27
-    },
-    {
-      "profile_url": "https://picsum.photos/id/1/50/50",
-      "author": "",
-      "content": "",
-      "createdAt": "2022-09-17",
-      "id": 28
-    },
-    {
-      "profile_url": "https://picsum.photos/id/1/50/50",
-      "author": "작성자",
-      "content": "sss",
-      "createdAt": "2022-09-17",
-      "id": 29
-    },
-    {
-      "profile_url": "https://picsum.photos/id/1/50/50",
-      "author": "fasdf",
-      "content": "fdsafdsff",
-      "createdAt": "2022-09-17",
-      "id": 30
     }
   ]
 }

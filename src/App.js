@@ -10,10 +10,16 @@ import { useState } from "react";
 
 function App() {
   const [page, setPage] = useState(1);
+  const [editData, setEditData] = useState(null);
+
   const { data, loading, error } = useSelector((state) => state.comment);
   const dispatch = useDispatch();
 
-  const totalPage = Math.ceil(data?.data.length / PER_PAGE);
+  const totalPage = Math.ceil(data?.length / PER_PAGE);
+
+  const onClickToEdit = (event) => {
+    setEditData(JSON.parse(event.target.id));
+  };
 
   useEffect(() => {
     dispatch(getComments());
@@ -26,15 +32,14 @@ function App() {
       {loading && <div>loading ...</div>}
       {data && (
         <>
-          {data.data
-            .slice(PER_PAGE * (page - 1), page * PER_PAGE)
-            .map((comment) => (
-              <CommentListContainer
-                comment={comment}
-                key={comment.id}
-                setPage={setPage}
-              />
-            ))}
+          {data.slice(PER_PAGE * (page - 1), page * PER_PAGE).map((comment) => (
+            <CommentListContainer
+              comment={comment}
+              key={comment.id}
+              setPage={setPage}
+              onClickToEdit={onClickToEdit}
+            />
+          ))}
 
           <PageListContainer
             totalPage={totalPage}
@@ -43,8 +48,11 @@ function App() {
           />
         </>
       )}
-
-      <FormContainer setPage={setPage} />
+      <FormContainer
+        setPage={setPage}
+        editData={editData}
+        setEditData={setEditData}
+      />
     </div>
   );
 }
