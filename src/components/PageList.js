@@ -21,15 +21,17 @@ const Page = styled.button`
   margin-right: 3px;
 `;
 
-function PageList({ allPage }) {
+function PageList({ onPageClick, allPage, curPage }) {
   const pageArray = Array.from({ length: allPage }, (_, number) => (
-    <Page key={number + 1}>{number + 1}</Page>
+    <Page
+      onClick={onPageClick}
+      data-id={number + 1}
+      active={number + 1 === curPage}
+      key={number + 1}
+    >
+      {number + 1}
+    </Page>
   ));
-
-  // pageArray.push(
-  //   // 임시로 페이지 하나만 설정했습니다.
-  //   <Page key="1">1</Page>
-  // );
 
   return <PageListStyle>{pageArray}</PageListStyle>;
 }

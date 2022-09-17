@@ -24,7 +24,7 @@ const FormStyle = styled.div`
   }
 `;
 
-function Form({ formInfo, onSubmit, onChange }) {
+function Form({ isEditMode, formInfo, onSubmit, onChange }) {
   return (
     <FormStyle>
       <form onSubmit={onSubmit}>
@@ -62,7 +62,7 @@ function Form({ formInfo, onSubmit, onChange }) {
           required
         />
         <br />
-        <button type="submit">{formInfo.profile_url ? "수정" : "등록"}</button>
+        <button type="submit">{isEditMode ? "수정" : "등록"}</button>
       </form>
     </FormStyle>
   );

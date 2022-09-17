@@ -4,17 +4,18 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import CommentList from "../components/CommentList";
-import { deleteComment, getComments } from "../modules/comment";
+import { deleteComment, getComments, pageClick } from "../modules/comment";
 import { clickFixBtn } from "../modules/editList";
 
 function CommentListContainer() {
-  const { data } = useSelector((state) => state.comment);
+  const { data, page, numberPerPage } = useSelector((state) => state.comment);
   const dispatch = useDispatch();
 
   const onDeleteClick = useCallback((e) => {
     const id = +e.target.getAttribute("data-id");
     if (!id) return;
     dispatch(deleteComment(id));
+    dispatch(pageClick(1));
   }, []);
 
   const onFixClick = useCallback(
@@ -35,7 +36,7 @@ function CommentListContainer() {
     <CommentList
       onFixClick={onFixClick}
       onDeleteClick={onDeleteClick}
-      comments={data}
+      comments={data.slice((page - 1) * numberPerPage, page * numberPerPage)}
     />
   );
 }

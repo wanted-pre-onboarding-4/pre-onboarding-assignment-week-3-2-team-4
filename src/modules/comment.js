@@ -16,11 +16,16 @@ const DELETE_COMMENT = "comment/DELETE_COMMENT";
 const DELETE_COMMENT_SUCCESS = "comment/DELETE_COMMENT_SUCCESS";
 const DELETE_COMMENT_ERROR = "comment/DELETE_COMMENT_ERROR";
 
-const initialStore = {
+const PAGE_CLICK = "comment/PAGE_CLICK";
+
+const initialState = {
   data: [],
   loading: false,
   error: null,
+  page: 1,
+  numberPerPage: 3,
 };
+export const pageClick = (page) => ({ type: PAGE_CLICK, page });
 
 export const getComments = () => async (dispatch) => {
   dispatch({ type: GET_COMMENTS }); // 요청이 시작됨  (로딩 시작);
@@ -80,7 +85,7 @@ export const putComment =
     }
   };
 
-const commentReducer = (state = initialStore, action) => {
+const commentReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_COMMENTS:
       return {
@@ -126,9 +131,7 @@ const commentReducer = (state = initialStore, action) => {
       return {
         ...state,
         loading: false,
-        data: state.data.map((comment) =>
-          comment.id !== action.id ? comment : action.info
-        ),
+        data: state.data.filter((comment) => comment.id !== action.id),
       };
     case DELETE_COMMENT_ERROR:
       return {
@@ -155,7 +158,11 @@ const commentReducer = (state = initialStore, action) => {
         loading: false,
         error: action.error,
       };
-
+    case PAGE_CLICK:
+      return {
+        ...state,
+        page: action.page,
+      };
     default:
       return state;
   }

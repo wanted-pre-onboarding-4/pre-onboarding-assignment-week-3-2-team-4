@@ -4,7 +4,7 @@ import { useCallback } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import Form from "../components/Form";
-import { postComment, putComment } from "../modules/comment";
+import { pageClick, postComment, putComment } from "../modules/comment";
 import { initializeEditList } from "../modules/editList";
 
 function FormContainer() {
@@ -45,6 +45,8 @@ function FormContainer() {
         })
       );
 
+      dispatch(pageClick(1));
+
       setFormInfo({
         profile_url: "",
         author: "",
@@ -80,6 +82,7 @@ function FormContainer() {
 
   return (
     <Form
+      isEditMode={Boolean(editList.id)}
       formInfo={formInfo}
       onSubmit={editList.id ? onEditSubmit : onPostSubmit}
       onChange={onChange}
