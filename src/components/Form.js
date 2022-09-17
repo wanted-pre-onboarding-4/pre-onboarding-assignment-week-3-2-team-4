@@ -24,24 +24,45 @@ const FormStyle = styled.div`
   }
 `;
 
-function Form({ onSubmit }) {
+function Form({ formInfo, onSubmit, onChange }) {
   return (
     <FormStyle>
       <form onSubmit={onSubmit}>
         <input
+          onChange={onChange}
           type="text"
           name="profile_url"
+          value={formInfo.profile_url}
           placeholder="https://picsum.photos/id/1/50/50"
           required
         />
         <br />
-        <input type="text" name="author" placeholder="작성자" />
+        <input
+          onChange={onChange}
+          type="text"
+          name="author"
+          value={formInfo.author}
+          placeholder="작성자"
+        />
         <br />
-        <textarea name="content" placeholder="내용" required></textarea>
+        <textarea
+          onChange={onChange}
+          name="content"
+          value={formInfo.content}
+          placeholder="내용"
+          required
+        ></textarea>
         <br />
-        <input type="text" name="createdAt" placeholder="2020-05-30" required />
+        <input
+          onChange={onChange}
+          type="text"
+          name="createdAt"
+          value={formInfo.createdAt}
+          placeholder="2020-05-30"
+          required
+        />
         <br />
-        <button type="submit">등록</button>
+        <button type="submit">{formInfo.profile_url ? "수정" : "등록"}</button>
       </form>
     </FormStyle>
   );

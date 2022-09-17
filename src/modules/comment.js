@@ -32,7 +32,7 @@ export const getComments = () => async (dispatch) => {
   }
 };
 
-export const postComments =
+export const postComment =
   ({ profile_url, author, content, createdAt }) =>
   async (dispatch) => {
     dispatch({ type: POST_COMMENT });
@@ -43,9 +43,40 @@ export const postComments =
         content,
         createdAt,
       });
-      console.log(data);
+      dispatch({ type: POST_COMMENT_SUCCESS, comment: data });
     } catch (e) {
-      console.log(e);
+      dispatch({ type: POST_COMMENT_ERROR, error: e });
+    }
+  };
+
+export const deleteComment = (id) => async (dispatch) => {
+  dispatch({ type: DELETE_COMMENT });
+  try {
+    await commentApi.delte(id);
+    dispatch({ type: DELETE_COMMENT_SUCCESS, id });
+  } catch (e) {
+    dispatch({ type: DELETE_COMMENT_ERROR, error: e });
+  }
+};
+
+export const putComment =
+  ({ id, profile_url, author, content, createdAt }) =>
+  async (dispatch) => {
+    dispatch({ type: PUT_COMMENT });
+    try {
+      await commentApi.put({
+        id,
+        profile_url,
+        author,
+        content,
+        createdAt,
+      });
+      dispatch({
+        type: PUT_COMMENT_SUCCESS,
+        fixComment: { id, info: { profile_url, author, content, createdAt } },
+      });
+    } catch (e) {
+      dispatch({ type: POST_COMMENT_ERROR, error: e });
     }
   };
 
@@ -68,6 +99,59 @@ const commentReducer = (state = initialStore, action) => {
         loading: false,
         error: action.error,
       };
+    case POST_COMMENT:
+      return {
+        ...state,
+        loading: true,
+      };
+    case POST_COMMENT_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        data: [...state.data, action.comment],
+      };
+    case POST_COMMENT_ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: action.error,
+      };
+
+    case DELETE_COMMENT:
+      return {
+        ...state,
+        loading: true,
+      };
+    case DELETE_COMMENT_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        data: state.data.filter((comment) => comment.id !== action.id),
+      };
+    case DELETE_COMMENT_ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: action.error,
+      };
+    case PUT_COMMENT:
+      return {
+        ...state,
+        loading: true,
+      };
+    case PUT_COMMENT_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        data: state.data.filter((comment) => comment.id !== action.id),
+      };
+    case PUT_COMMENT_ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: action.error,
+      };
+
     default:
       return state;
   }

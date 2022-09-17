@@ -1,7 +1,7 @@
 const INITIALIZE = "editList/INITIALIZE";
 const CLICK_FIX_BTN = "editList/CLICK_FIX_BTN";
 
-export const initializeEditNumber = () => ({
+export const initializeEditList = () => ({
   type: INITIALIZE,
 });
 
@@ -39,6 +39,8 @@ const editReducer = (state = initialState, action) => {
         ...state,
         ...action.info,
       };
+    default:
+      return state;
   }
 };
 

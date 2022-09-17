@@ -35,7 +35,7 @@ const Button = styled.div`
   }
 `;
 
-function CommentList({ comments }) {
+function CommentList({ onFixClick, onDeleteClick, comments }) {
   return comments.map((comment, key) => (
     <Comment key={key}>
       <img src={comment.profile_url} alt="" />
@@ -47,8 +47,12 @@ function CommentList({ comments }) {
       <Content>{comment.content}</Content>
 
       <Button>
-        <a>수정</a>
-        <a>삭제</a>
+        <a data-id={comment.id} onClick={onFixClick}>
+          수정
+        </a>
+        <a data-id={comment.id} onClick={onDeleteClick}>
+          삭제
+        </a>
       </Button>
 
       <hr />

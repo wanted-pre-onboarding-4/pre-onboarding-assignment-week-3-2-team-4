@@ -6,8 +6,8 @@ const commentApi = {
   get: () => api.get("/comments"),
   post: ({ profile_url, author, content, createdAt }) =>
     api.post("/comments", { profile_url, author, content, createdAt }),
-  put: ({ profile, writer, message, date, id }) =>
-    api.post(`/comments/${id}`, { profile, writer, message, date }),
+  put: ({ profile_url, author, content, createdAt, id }) =>
+    api.put(`/comments/${id}`, { profile_url, author, content, createdAt }),
   delte: (id) => api.delete(`/comments/${id}`),
 };
 
