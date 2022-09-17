@@ -3,23 +3,20 @@ import { useDispatch, useSelector } from "react-redux";
 import Form from "../components/Form";
 import { postComment, updateComment } from "../modules/comment";
 
+const INITIAL_FORM_DATA = {
+  profileUrl: "",
+  author: "",
+  content: "",
+  createdAt: "",
+};
+
 function FormContainer({ setIsEdit, isEdit }) {
   const { updatedData } = useSelector((state) => state.comment);
   const dispatch = useDispatch();
-  const [formData, setFormData] = useState({
-    profileUrl: "",
-    author: "",
-    content: "",
-    createdAt: "",
-  });
+  const [formData, setFormData] = useState({ ...INITIAL_FORM_DATA });
 
   const clearForm = () => {
-    setFormData({
-      profileUrl: "",
-      author: "",
-      content: "",
-      createdAt: "",
-    });
+    setFormData({ ...INITIAL_FORM_DATA });
   };
 
   const handleCommentPost = React.useCallback(() => {
@@ -46,6 +43,12 @@ function FormContainer({ setIsEdit, isEdit }) {
     });
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    handleCommentPost();
+    setIsEdit(false);
+  };
+
   useEffect(() => {
     if (isEdit) {
       setFormData({
@@ -59,6 +62,7 @@ function FormContainer({ setIsEdit, isEdit }) {
 
   return (
     <Form
+      handleSubmit={handleSubmit}
       setIsEdit={setIsEdit}
       isEdit={isEdit}
       formData={formData}

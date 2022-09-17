@@ -24,12 +24,7 @@ const FormStyle = styled.div`
   }
 `;
 
-function Form({ setIsEdit, isEdit, formData, handleInput, handleCommentPost }) {
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    handleCommentPost();
-    setIsEdit(false);
-  };
+function Form({ isEdit, formData, handleInput, handleSubmit }) {
   return (
     <FormStyle>
       <form onSubmit={handleSubmit}>

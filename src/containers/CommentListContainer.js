@@ -6,11 +6,11 @@ import CommentList from "../components/CommentList";
 import { deleteComment, getComments, getPrevComment } from "../modules/comment";
 
 function CommentListContainer({ setIsEdit }) {
-  const state = useSelector((state) => state.comment);
+  const { data } = useSelector((state) => state.comment);
   const dispatch = useDispatch();
 
   const handleCommentUpdate = (commentId) => {
-    const targetComment = state.data.find(({ id }) => id === Number(commentId));
+    const targetComment = data.find(({ id }) => id === Number(commentId));
     dispatch(getPrevComment(targetComment));
   };
 
@@ -21,13 +21,14 @@ function CommentListContainer({ setIsEdit }) {
     },
     [dispatch]
   );
+
   useEffect(() => {
     dispatch(getComments());
-  }, [dispatch]); // 이게 왜 안먹을까
+  }, []);
 
   return (
     <CommentList
-      comments={state.data}
+      comments={data}
       setIsEdit={setIsEdit}
       handleCommentDelete={handleCommentDelete}
       handleCommentUpdate={handleCommentUpdate}
