@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { createComment } from "../actions/comment";
+import { selectPage } from "../actions/page";
 
 const FormStyle = styled.div`
 	& > form {
@@ -27,6 +28,7 @@ const FormStyle = styled.div`
 `;
 
 function Form() {
+	const formRef = useRef();
 	const imgRef = useRef();
 	const authorRef = useRef();
 	const contentRef = useRef();
@@ -43,11 +45,14 @@ function Form() {
 			createdAt: createadRef.current.value,
 		};
 		dispatch(createComment(comment));
+		dispatch(selectPage(0));
+
+		formRef.current.reset();
 	};
 
 	return (
 		<FormStyle>
-			<form onSubmit={submitHandler}>
+			<form ref={formRef} onSubmit={submitHandler}>
 				<input
 					ref={imgRef}
 					type="text"
