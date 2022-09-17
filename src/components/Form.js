@@ -27,73 +27,49 @@ const FormStyle = styled.div`
   }
 `;
 
-function Form() {
-  const [profileUrl, setProfileUrl] = useState("");
-  const [author, setAuthor] = useState("");
-  const [content, setContent] = useState("");
-  const [createdAt, setCreatedAt] = useState("");
-  const dispatch = useDispatch();
-
-  const clearForm = () => {
-    setProfileUrl("");
-    setAuthor("");
-    setContent("");
-    setCreatedAt("");
-  };
-
-  const handleCommentPost = (e) => {
+function Form({ formData, handleInput, handleCommentPost }) {
+  const handleSubmit = (e) => {
     e.preventDefault();
-
-    const postData = {
-      profile_url: profileUrl,
-      author,
-      content,
-      createdAt,
-    };
-
-    dispatch(postComment(postData));
-    clearForm();
+    handleCommentPost();
   };
   return (
     <FormStyle>
-      <form>
+      <form onSubmit={handleSubmit}>
         <input
-          onChange={(e) => setProfileUrl(e.target.value)}
-          value={profileUrl}
+          onChange={(e) => handleInput(e.target.name, e.target.value)}
+          value={formData.profileUrl}
           type='text'
-          name='profile_url'
+          name='profileUrl'
           placeholder='https://picsum.photos/id/1/50/50'
           required
         />
         <br />
         <input
-          onChange={(e) => setAuthor(e.target.value)}
-          value={author}
+          onChange={(e) => handleInput(e.target.name, e.target.value)}
+          value={formData.author}
           type='text'
           name='author'
           placeholder='작성자'
         />
         <br />
         <textarea
-          onChange={(e) => setContent(e.target.value)}
-          value={content}
+          onChange={(e) => handleInput(e.target.name, e.target.value)}
+          value={formData.content}
           name='content'
           placeholder='내용'
           required
         ></textarea>
         <br />
         <input
-          onChange={(e) => setCreatedAt(e.target.value)}
-          value={createdAt}
+          onChange={(e) => handleInput(e.target.name, e.target.value)}
+          value={formData.createdAt}
           type='text'
           name='createdAt'
           placeholder='2020-05-30'
           required
         />
         <br />
-        <button onClick={handleCommentPost} type='submit'>
-          등록
-        </button>
+        <button type='submit'>등록</button>
       </form>
     </FormStyle>
   );
