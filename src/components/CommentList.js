@@ -1,7 +1,9 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { deleteComment } from "../actions/comment";
+import { selectPage } from "../actions/page";
 
 const Comment = styled.div`
 	padding: 7px 10px;
@@ -39,12 +41,16 @@ const Button = styled.div`
 
 function CommentList({ comments }) {
   const dispatch = useDispatch()
+  const pageNumber = useSelector(state => state.page)
 
   const deleteHandler = (id) => {
     dispatch(deleteComment(id))
+    dispatch(selectPage(0))
   }
 
-	return comments.map(({ profile_url, author, createdAt, content , id} ) => (
+  const startPoint = pageNumber * 4
+
+	return comments.slice(startPoint, startPoint +4).map(({ profile_url, author, createdAt, content , id} ) => (
 		<Comment key={id}>
 			<img src={profile_url} alt="user profile" />
 
