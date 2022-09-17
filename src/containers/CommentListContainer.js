@@ -1,16 +1,13 @@
 import React from "react";
-import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
 import CommentList from "../components/CommentList";
 import { deleteComment, getComments, getPrevComment } from "../modules/comment";
 
-function CommentListContainer({ setIsEdit }) {
-  const { data } = useSelector((state) => state.comment);
+function CommentListContainer({ setIsEdit, comments }) {
   const dispatch = useDispatch();
 
   const handleCommentUpdate = (commentId) => {
-    const targetComment = data.find(({ id }) => id === Number(commentId));
+    const targetComment = comments.find(({ id }) => id === Number(commentId));
     dispatch(getPrevComment(targetComment));
   };
 
@@ -22,13 +19,9 @@ function CommentListContainer({ setIsEdit }) {
     [dispatch]
   );
 
-  useEffect(() => {
-    dispatch(getComments());
-  }, []);
-
   return (
     <CommentList
-      comments={data}
+      comments={comments}
       setIsEdit={setIsEdit}
       handleCommentDelete={handleCommentDelete}
       handleCommentUpdate={handleCommentUpdate}
