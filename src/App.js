@@ -10,7 +10,6 @@ import { useState } from "react";
 
 function App() {
   const [page, setPage] = useState(1);
-
   const { data, loading, error } = useSelector((state) => state.comment);
   const dispatch = useDispatch();
 
@@ -30,10 +29,18 @@ function App() {
           {data.data
             .slice(PER_PAGE * (page - 1), page * PER_PAGE)
             .map((comment) => (
-              <CommentListContainer comment={comment} key={comment.id} />
+              <CommentListContainer
+                comment={comment}
+                key={comment.id}
+                setPage={setPage}
+              />
             ))}
 
-          <PageListContainer totalPage={totalPage} setPage={setPage} />
+          <PageListContainer
+            totalPage={totalPage}
+            page={page}
+            setPage={setPage}
+          />
         </>
       )}
 

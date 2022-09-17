@@ -1,7 +1,7 @@
 import PageList from "../components/PageList";
 
-function PageListContainer({ totalPage, setPage }) {
-  return <PageList totalPage={totalPage} setPage={setPage} />;
+function PageListContainer({ totalPage, page, setPage }) {
+  return <PageList totalPage={totalPage} page={page} setPage={setPage} />;
 }
 
 export default PageListContainer;

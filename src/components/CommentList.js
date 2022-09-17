@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-function CommentList({ comment }) {
+function CommentList({ comment, onClickDelete }) {
   return (
     <Comment>
       <img src={comment.profile_url} alt="" />
@@ -9,7 +9,9 @@ function CommentList({ comment }) {
       <Content>{comment.content}</Content>
       <Button>
         <button>수정</button>
-        <button>삭제</button>
+        <button id={comment.id} onClick={onClickDelete}>
+          삭제
+        </button>
       </Button>
 
       <hr />

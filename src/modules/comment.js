@@ -1,5 +1,6 @@
-import axios from "axios";
 import { reducerUtils } from "../util/async.utill";
+import { commentApi } from "../services/api";
+
 const GET_COMMENTS = "comment/GET_COMMENT_LIST";
 const GET_COMMENTS_SUCCESS = "comment/GET_COMMENT_LIST_SUCCESS";
 const GET_COMMENTS_ERROR = "comment/GET_COMMENT_LIST_ERROR";
@@ -16,22 +17,23 @@ const DELETE_COMMENT = "comment/DELETE_COMMENT";
 const DELETE_COMMENT_SUCCESS = "comment/DELETE_COMMENT_SUCCESS";
 const DELETE_COMMENT_ERROR = "comment/DELETE_COMMENT_ERROR";
 
-const initialStore = {
-  data: [],
-  loading: false,
-  error: null,
+export const getComments = () => async (dispatch) => {
+  dispatch({ type: GET_COMMENTS });
+  try {
+    const { data } = await commentApi.getList();
+    dispatch({ type: GET_COMMENTS_SUCCESS, data: data });
+  } catch (e) {
+    dispatch({ type: GET_COMMENTS_ERROR, error: e });
+  }
 };
 
-export const getComments = () => async (dispatch) => {
-  dispatch({ type: GET_COMMENTS }); // 요청이 시작됨  (로딩 시작);
+export const deleteComment = (comment_id) => async (dispatch) => {
+  dispatch({ type: DELETE_COMMENT });
   try {
-    const { data } = await axios.get(
-      "http://localhost:4000/comments" //
-    );
-
-    dispatch({ type: GET_COMMENTS_SUCCESS, data: data }); // 성공
+    await commentApi.deleteComment(comment_id);
+    dispatch({ type: DELETE_COMMENT_SUCCESS });
   } catch (e) {
-    dispatch({ type: GET_COMMENTS_ERROR, error: e }); // 실패
+    dispatch({ type: DELETE_COMMENT_ERROR, error: e });
   }
 };
 
@@ -57,6 +59,20 @@ const commentReducer = (state = reducerUtils.initialStore, action) => {
         // error: action.error,
         ...reducerUtils.error(action),
       };
+
+    case DELETE_COMMENT:
+      return {
+        ...reducerUtils.loading(),
+      };
+    case DELETE_COMMENT_SUCCESS:
+      return {
+        ...reducerUtils.success(null),
+      };
+    case DELETE_COMMENT_ERROR:
+      return {
+        ...reducerUtils.error(action),
+      };
+
     default:
       return state;
   }

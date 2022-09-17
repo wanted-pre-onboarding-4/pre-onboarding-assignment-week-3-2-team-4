@@ -1,17 +1,15 @@
 import styled from "styled-components";
 
-function PageList({ totalPage, setPage, active }) {
+function PageList({ totalPage, page, setPage }) {
   return (
     <PageListStyle>
       {new Array(totalPage).fill(1).map((_, index) => (
         <Page
           id={index + 1}
+          key={index + 1}
+          page={page}
           onClick={() => {
             setPage(index + 1);
-          }}
-          key={index + 1}
-          style={{
-            color: Number(active) === Number(index + 1) ? "#dfdfdf" : "black",
           }}
         >
           {index + 1}
@@ -34,11 +32,11 @@ const Page = styled.button`
   font-size: 1rem;
   line-height: 1.5;
   border: 1px solid lightgray;
-  ${({ active }) =>
-    active &&
+  ${({ page, id }) =>
+    page === id &&
     `
-        background: gray;
+    background: gray;
         color: #fff;
-  `}
+    `}
   margin-right: 3px;
 `;
