@@ -47,9 +47,16 @@ const data = [
 ];
 
 function CommentList({ comments }) {
+  const handlePostComment = () => {
+    console.log("Dispatch Post");
+  };
+
+  const handleDeleteComment = () => {
+    console.log("Dispatch DELETE");
+  };
   return comments.map((comment, key) => (
     <Comment key={key}>
-      <img src={comment.profile_url} alt="" />
+      <img src={comment.profile_url} alt='' />
 
       {comment.author}
 
@@ -58,8 +65,8 @@ function CommentList({ comments }) {
       <Content>{comment.content}</Content>
 
       <Button>
-        <a>수정</a>
-        <a>삭제</a>
+        <button onClick={handlePostComment}>수정</button>
+        <button onClick={handleDeleteComment}>삭제</button>
       </Button>
 
       <hr />
