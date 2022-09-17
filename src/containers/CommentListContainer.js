@@ -5,7 +5,7 @@ import { getComments, deleteComment } from "../modules/comment";
 function CommentListContainer({ comment, setPage, onClickToEdit }) {
   const dispatch = useDispatch();
 
-  const onClickDelete = async (event) => {
+  const onClickDelete = (event) => {
     dispatch(deleteComment(event.target.id));
     dispatch(getComments());
     setPage(1);

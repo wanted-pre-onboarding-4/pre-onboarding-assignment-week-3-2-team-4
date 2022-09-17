@@ -14,15 +14,7 @@ const INITIAL_STATE = {
 
 function FormContainer({ setPage, editData, setEditData }) {
   const dispatch = useDispatch();
-
   const [inputs, setInputs] = useState({ ...INITIAL_STATE });
-
-  const onChangeInputs = (event) => {
-    setInputs({
-      ...inputs,
-      [event.target.id]: event.target.value,
-    });
-  };
 
   useEffect(() => {
     if (editData)
@@ -32,7 +24,14 @@ function FormContainer({ setPage, editData, setEditData }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editData]);
 
-  const onClickPost = async (e) => {
+  const onChangeInputs = (event) => {
+    setInputs({
+      ...inputs,
+      [event.target.id]: event.target.value,
+    });
+  };
+
+  const onClickPost = (e) => {
     if (!inputs.author || !inputs.content) {
       return alert("작성자, 내용 모두 입력해야합니다");
     }
@@ -42,7 +41,7 @@ function FormContainer({ setPage, editData, setEditData }) {
     setInputs({ ...INITIAL_STATE });
   };
 
-  const onClickUpdate = async (e) => {
+  const onClickUpdate = (e) => {
     e.preventDefault();
     dispatch(putComment(inputs.id, inputs));
     setEditData(null);
