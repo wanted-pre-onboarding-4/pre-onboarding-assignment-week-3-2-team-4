@@ -10,5 +10,5 @@ export const commentApi = {
   postComment: (bodyData) => axiosInstance.post("/comments", bodyData),
   updateComment: (commentId, bodyData) =>
     axiosInstance.put(`/comments/${commentId}`, bodyData),
-  deleteComent: (commentId) => axiosInstance.delete(`/comments/${commentId}`),
+  deleteComment: (commentId) => axiosInstance.delete(`/comments/${commentId}`),
 };

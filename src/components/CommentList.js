@@ -1,5 +1,7 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import { deleteComment, getComments } from "../modules/comment";
 
 const Comment = styled.div`
   padding: 7px 10px;
@@ -47,13 +49,18 @@ const data = [
 ];
 
 function CommentList({ comments }) {
+  const dispatch = useDispatch();
+
   const handlePostComment = () => {
     console.log("Dispatch Post");
   };
 
-  const handleDeleteComment = () => {
+  const handleDeleteComment = (e) => {
     console.log("Dispatch DELETE");
+    dispatch(deleteComment(e.target.id));
+    dispatch(getComments());
   };
+
   return comments.map((comment, key) => (
     <Comment key={key}>
       <img src={comment.profile_url} alt='' />
@@ -65,8 +72,12 @@ function CommentList({ comments }) {
       <Content>{comment.content}</Content>
 
       <Button>
-        <button onClick={handlePostComment}>수정</button>
-        <button onClick={handleDeleteComment}>삭제</button>
+        <button id={comment.id} onClick={handlePostComment}>
+          수정
+        </button>
+        <button id={comment.id} onClick={handleDeleteComment}>
+          삭제
+        </button>
       </Button>
 
       <hr />

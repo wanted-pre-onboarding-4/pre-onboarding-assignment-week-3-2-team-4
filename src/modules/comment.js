@@ -43,6 +43,17 @@ export const postComment = (bodyData) => async (dispatch) => {
   }
 };
 
+export const deleteComment = (commentId) => async (dispatch) => {
+  dispatch({ type: DELETE_COMMENT });
+  try {
+    const { data } = await commentApi.deleteComment(commentId);
+    console.log(data);
+    // dispatch({ type: DELETE_COMMENT_SUCCESS, comment: data });
+  } catch (e) {
+    dispatch({ type: DELETE_COMMENT_ERROR, error: e });
+  }
+};
+
 const commentReducer = (state = initialStore, action) => {
   switch (action.type) {
     case GET_COMMENTS:
