@@ -33,6 +33,16 @@ export const getComments = () => async (dispatch) => {
   }
 };
 
+export const postComment = (bodyData) => async (dispatch) => {
+  dispatch({ type: POST_COMMENT });
+  try {
+    const { data } = await commentApi.postComment(bodyData);
+    dispatch({ type: POST_COMMENT_SUCCESS, comment: data });
+  } catch (e) {
+    dispatch({ type: POST_COMMENT_ERROR, error: e });
+  }
+};
+
 const commentReducer = (state = initialStore, action) => {
   switch (action.type) {
     case GET_COMMENTS:
@@ -47,6 +57,23 @@ const commentReducer = (state = initialStore, action) => {
         data: action.comments,
       };
     case GET_COMMENTS_ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: action.error,
+      };
+    case POST_COMMENT:
+      return {
+        ...state,
+        loading: true,
+      };
+    case POST_COMMENT_SUCCESS:
+      return {
+        ...state,
+        data: [...state.data, action.comment],
+        loading: false,
+      };
+    case POST_COMMENT_ERROR:
       return {
         ...state,
         loading: false,
