@@ -8,8 +8,12 @@ import rootReducer from "./modules";
 import reportWebVitals from "./reportWebVitals";
 import logger from "redux-logger";
 import ReduxThunk from "redux-thunk";
+import { composeWithDevTools } from "@redux-devtools/extension";
 
-const store = createStore(rootReducer, applyMiddleware(ReduxThunk, logger));
+const store = createStore(
+  rootReducer,
+  composeWithDevTools(applyMiddleware(ReduxThunk, logger))
+);
 
 const container = document.getElementById("root");
 const root = createRoot(container);

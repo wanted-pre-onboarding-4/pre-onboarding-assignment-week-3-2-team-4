@@ -7,12 +7,14 @@ import { useSelector } from "react-redux";
 import { getComments } from "./modules/comment";
 import { useDispatch } from "react-redux";
 
+const PER_PAGE = 4;
+
 function App() {
   const dispatch = useDispatch();
   const [isEdit, setIsEdit] = useState(false);
   const { data: comments } = useSelector((state) => state.comment);
   const [page, setPage] = useState(1);
-  const numPages = Math.ceil(comments.length / 4);
+  const numPages = Math.ceil(comments.length / PER_PAGE);
 
   useEffect(() => {
     dispatch(getComments());
@@ -22,7 +24,7 @@ function App() {
     <div>
       <CommentListContainer
         setIsEdit={setIsEdit}
-        comments={comments.slice(4 * (page - 1), page * 4)}
+        comments={comments.slice(PER_PAGE * (page - 1), page * PER_PAGE)}
         setPage={setPage}
       />
       <PageListContainer
