@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import { reducerUtils } from "../util/async.utill";
 const GET_COMMENTS = "comment/GET_COMMENT_LIST";
 const GET_COMMENTS_SUCCESS = "comment/GET_COMMENT_LIST_SUCCESS";
 const GET_COMMENTS_ERROR = "comment/GET_COMMENT_LIST_ERROR";
@@ -29,30 +29,33 @@ export const getComments = () => async (dispatch) => {
       "http://localhost:4000/comments" //
     );
 
-    dispatch({ type: GET_COMMENTS_SUCCESS, comments: data }); // 성공
+    dispatch({ type: GET_COMMENTS_SUCCESS, data: data }); // 성공
   } catch (e) {
     dispatch({ type: GET_COMMENTS_ERROR, error: e }); // 실패
   }
 };
 
-const commentReducer = (state = initialStore, action) => {
+const commentReducer = (state = reducerUtils.initialStore, action) => {
   switch (action.type) {
     case GET_COMMENTS:
       return {
-        ...state,
-        loading: true,
+        // ...state,
+        // loading: true,
+        ...reducerUtils.loading(),
       };
     case GET_COMMENTS_SUCCESS:
       return {
-        ...state,
-        loading: false,
-        data: action.comments,
+        // ...state,
+        // loading: false,
+        // data: action.comments,
+        ...reducerUtils.success(action),
       };
     case GET_COMMENTS_ERROR:
       return {
-        ...state,
-        loading: false,
-        error: action.error,
+        // ...state,
+        // loading: false,
+        // error: action.error,
+        ...reducerUtils.error(action),
       };
     default:
       return state;

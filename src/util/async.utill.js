@@ -1,11 +1,11 @@
 export const reducerUtils = {
-  initial: (data = null) => ({
+  initialStore: (data = null) => ({
     loading: false,
     data,
     error: null,
   }),
-  loading: (preveState = null) => ({
-    data: preveState,
+  loading: (prevState = null) => ({
+    data: prevState,
     loading: true,
     error: null,
   }),

@@ -1,5 +1,27 @@
-import React from "react";
 import styled from "styled-components";
+
+function PageList({ totalPage, setPage, active }) {
+  return (
+    <PageListStyle>
+      {new Array(totalPage).fill(1).map((_, index) => (
+        <Page
+          id={index + 1}
+          onClick={() => {
+            setPage(index + 1);
+          }}
+          key={index + 1}
+          style={{
+            color: Number(active) === Number(index + 1) ? "#dfdfdf" : "black",
+          }}
+        >
+          {index + 1}
+        </Page>
+      ))}
+    </PageListStyle>
+  );
+}
+
+export default PageList;
 
 const PageListStyle = styled.div`
   margin-bottom: 20px;
@@ -20,16 +42,3 @@ const Page = styled.button`
   `}
   margin-right: 3px;
 `;
-
-function PageList() {
-  const pageArray = [];
-
-  pageArray.push(
-    // 임시로 페이지 하나만 설정했습니다.
-    <Page key="1">1</Page>
-  );
-
-  return <PageListStyle>{pageArray}</PageListStyle>;
-}
-
-export default PageList;
