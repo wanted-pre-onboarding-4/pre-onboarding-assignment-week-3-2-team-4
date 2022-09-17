@@ -44,6 +44,8 @@ function CommentList({ comments }) {
   const pageNumber = useSelector(state => state.page)
 
   const deleteHandler = (id) => {
+    const confirm = window.confirm("삭제 하시겠습니까?") 
+    if(!confirm) return
     dispatch(deleteComment(id))
     dispatch(selectPage(0))
   }
