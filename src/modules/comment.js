@@ -1,4 +1,4 @@
-import axios from "axios";
+import { commentApi } from "../lib/api";
 
 const GET_COMMENTS = "comment/GET_COMMENT_LIST";
 const GET_COMMENTS_SUCCESS = "comment/GET_COMMENT_LIST_SUCCESS";
@@ -25,9 +25,7 @@ const initialStore = {
 export const getComments = () => async (dispatch) => {
   dispatch({ type: GET_COMMENTS }); // 요청이 시작됨  (로딩 시작);
   try {
-    const { data } = await axios.get(
-      "http://localhost:4000/comments" //
-    );
+    const { data } = await commentApi.getAllComments();
 
     dispatch({ type: GET_COMMENTS_SUCCESS, comments: data }); // 성공
   } catch (e) {
