@@ -2,19 +2,20 @@ import React from "react";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
+import { getComments } from "../actions/comment";
 import CommentList from "../components/CommentList";
-import { getComments } from "../modules/comment";
 
 function CommentListContainer() {
-  const state = useSelector((state) => state.comment);
-  console.log(state);
-  const dispatch = useDispatch();
+	const comemnts = useSelector((state) => state.comment);
+	const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getComments());
-  }, []);
+	useEffect(() => {
+		dispatch(getComments());
+	}, []);
 
-  return <CommentList comments={state.data} />;
+	return (
+			<CommentList comments={comemnts} />
+	);
 }
 
 export default CommentListContainer;
