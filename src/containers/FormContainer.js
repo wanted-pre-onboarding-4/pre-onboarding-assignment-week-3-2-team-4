@@ -10,7 +10,7 @@ const INITIAL_FORM_DATA = {
   createdAt: "",
 };
 
-function FormContainer({ setIsEdit, isEdit }) {
+function FormContainer({ setIsEdit, setPage, isEdit }) {
   const { updatedData } = useSelector((state) => state.comment);
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({ ...INITIAL_FORM_DATA });
@@ -31,6 +31,7 @@ function FormContainer({ setIsEdit, isEdit }) {
       dispatch(updateComment(updatedData.id, bodyData));
     } else {
       dispatch(postComment(bodyData));
+      setPage(1);
     }
 
     clearForm();

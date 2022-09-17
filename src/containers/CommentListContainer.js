@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import CommentList from "../components/CommentList";
 import { deleteComment, getComments, getPrevComment } from "../modules/comment";
 
-function CommentListContainer({ setIsEdit, comments }) {
+function CommentListContainer({ setIsEdit, setPage, comments }) {
   const dispatch = useDispatch();
 
   const handleCommentUpdate = (commentId) => {
@@ -15,6 +15,7 @@ function CommentListContainer({ setIsEdit, comments }) {
     (commentId) => {
       dispatch(deleteComment(commentId));
       dispatch(getComments());
+      setPage(1);
     },
     [dispatch]
   );

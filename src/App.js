@@ -23,6 +23,7 @@ function App() {
       <CommentListContainer
         setIsEdit={setIsEdit}
         comments={comments.slice(4 * (page - 1), page * 4)}
+        setPage={setPage}
       />
       <PageListContainer
         total={comments.length}
@@ -30,7 +31,7 @@ function App() {
         page={page}
         setPage={setPage}
       />
-      <FormContainer setIsEdit={setIsEdit} isEdit={isEdit} />
+      <FormContainer setPage={setPage} setIsEdit={setIsEdit} isEdit={isEdit} />
     </div>
   );
 }
