@@ -48,17 +48,13 @@ const data = [
   },
 ];
 
-function CommentList({ comments }) {
-  const dispatch = useDispatch();
-
+function CommentList({ comments, handleCommentDelete }) {
   const handlePostComment = () => {
     console.log("Dispatch Post");
   };
 
-  const handleDeleteComment = (e) => {
-    console.log("Dispatch DELETE");
-    dispatch(deleteComment(e.target.id));
-    dispatch(getComments());
+  const onDelete = (e) => {
+    handleCommentDelete(e.target.id);
   };
 
   return comments.map((comment, key) => (
@@ -75,7 +71,7 @@ function CommentList({ comments }) {
         <button id={comment.id} onClick={handlePostComment}>
           수정
         </button>
-        <button id={comment.id} onClick={handleDeleteComment}>
+        <button id={comment.id} onClick={onDelete}>
           삭제
         </button>
       </Button>

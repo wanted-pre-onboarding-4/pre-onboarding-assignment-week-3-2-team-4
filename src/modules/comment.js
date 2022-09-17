@@ -46,9 +46,8 @@ export const postComment = (bodyData) => async (dispatch) => {
 export const deleteComment = (commentId) => async (dispatch) => {
   dispatch({ type: DELETE_COMMENT });
   try {
-    const { data } = await commentApi.deleteComment(commentId);
-    console.log(data);
-    // dispatch({ type: DELETE_COMMENT_SUCCESS, comment: data });
+    await commentApi.deleteComment(commentId);
+    dispatch({ type: DELETE_COMMENT_SUCCESS });
   } catch (e) {
     dispatch({ type: DELETE_COMMENT_ERROR, error: e });
   }
@@ -85,6 +84,22 @@ const commentReducer = (state = initialStore, action) => {
         loading: false,
       };
     case POST_COMMENT_ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: action.error,
+      };
+    case DELETE_COMMENT:
+      return {
+        ...state,
+        loading: true,
+      };
+    case DELETE_COMMENT_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+      };
+    case DELETE_COMMENT_ERROR:
       return {
         ...state,
         loading: false,

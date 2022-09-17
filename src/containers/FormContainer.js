@@ -21,7 +21,7 @@ function FormContainer() {
     });
   };
 
-  const handleCommentPost = () => {
+  const handleCommentPost = React.useCallback(() => {
     const postData = {
       profile_url: formData.profileUrl,
       author: formData.author,
@@ -31,7 +31,7 @@ function FormContainer() {
 
     dispatch(postComment(postData));
     clearForm();
-  };
+  }, [formData, dispatch]);
 
   const handleInput = (k, v) => {
     setFormData({
