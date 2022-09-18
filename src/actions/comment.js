@@ -3,6 +3,7 @@ import {
 	CREATE_COMMENT,
 	UPDATE_COMMENT,
 	DELETE_COMMENT,
+	SELECT_COMMENT,
 } from "./types";
 
 import commentServices from "../services/comment";
@@ -30,6 +31,13 @@ export const getComments = () => async (dispatch) => {
 	} catch (err) {
 		console.log(err);
 	}
+};
+
+export const getComment = (commentId) => async (dispatch) => {
+	dispatch({
+		type: SELECT_COMMENT,
+		payload: commentId,
+	});
 };
 
 export const updateComment =
