@@ -32,12 +32,29 @@ function CommentList({ comments }) {
 				</Comment>
 			))}
 			{comments && (
-				<PageList
-					total={comments.length}
-					limit={limit}
-					page={page}
-					setPage={setPage}
-				/>
+				<>
+					<PageList
+						total={comments.length}
+						limit={limit}
+						page={page}
+						setPage={setPage}
+					/>
+					<SelectBox>
+						<SelectText>페이지 당 게시물 수</SelectText>
+						<select
+							type="number"
+							value={limit}
+							onChange={({ target: { value } }) =>
+								setLimit(Number(value))
+							}
+						>
+							<option value="5">5</option>
+							<option value="10">10</option>
+							<option value="15">15</option>
+							<option value="20">20</option>
+						</select>
+					</SelectBox>
+				</>
 			)}
 		</>
 	);
@@ -45,6 +62,17 @@ function CommentList({ comments }) {
 
 export default CommentList;
 
+const SelectBox = styled.div`
+	display: flex;
+	justify-content: center;
+	margin-bottom: 30px;
+	margin-left: 15px;
+`;
+const SelectText = styled.span`
+	margin-right: 15px;
+	font-size: 20px;
+	font-weight: 500;
+`;
 const Comment = styled.div`
 	padding: 7px 10px;
 	text-align: left;
