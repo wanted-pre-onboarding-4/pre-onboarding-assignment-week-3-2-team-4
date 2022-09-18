@@ -7,7 +7,6 @@ import { getComments } from "../modules/comment";
 
 function CommentListContainer({ setIsEdit }) {
 	const state = useSelector((state) => state.comment);
-	console.log(state);
 	const dispatch = useDispatch();
 
 	useEffect(() => {

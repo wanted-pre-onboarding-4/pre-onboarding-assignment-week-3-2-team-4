@@ -36,7 +36,6 @@ export const getComments = () => async (dispatch) => {
 
 export const postComments = (props) => async (dispatch) => {
 	const { profile_url, content, author, createdAt } = props;
-	console.log();
 	dispatch({ type: POST_COMMENT }); // 요청이 시작됨  (로딩 시작);
 	try {
 		await axios.post(`${baseURL}comments`, {
@@ -46,7 +45,7 @@ export const postComments = (props) => async (dispatch) => {
 			createdAt,
 		});
 
-		dispatch({ type: POST_COMMENT_SUCCESS }); // 성공
+		dispatch({ type: POST_COMMENT_SUCCESS, data: props }); // 성공
 	} catch (e) {
 		dispatch({ type: POST_COMMENT_ERROR, error: e }); // 실패
 	}
@@ -57,7 +56,7 @@ export const deleteComments = (id) => async (dispatch) => {
 	dispatch({ type: DELETE_COMMENT }); // 요청이 시작됨  (로딩 시작);
 	try {
 		await axios.delete(`${baseURL}comments/${id}`);
-		dispatch({ type: DELETE_COMMENT_SUCCESS }); // 성공
+		dispatch({ type: DELETE_COMMENT_SUCCESS, payload: id }); // 성공
 	} catch (e) {
 		dispatch({ type: DELETE_COMMENT_ERROR, error: e }); // 실패
 	}
@@ -76,12 +75,22 @@ const commentReducer = (state = initialStore, action) => {
 				loading: false,
 				data: action.comments,
 			};
-		case GET_COMMENTS_ERROR:
+		case POST_COMMENT_SUCCESS:
+			console.log(state);
+			const data = action.data;
 			return {
 				...state,
+				data: [...state.data, data],
+				error: null,
 				loading: false,
-				error: action.error,
 			};
+		case POST_COMMENT_ERROR:
+			console.log(state);
+		case DELETE_COMMENT_SUCCESS:
+			const comments = state.data.filter((comment) => {
+				return comment.id !== action.payload;
+			});
+			return { data: comments };
 
 		default:
 			return state;

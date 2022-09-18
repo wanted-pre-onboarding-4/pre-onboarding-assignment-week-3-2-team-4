@@ -1,20 +1,6 @@
 {
   "comments": [
     {
-      "id": 1,
-      "profile_url": "https://picsum.photos/id/1/50/50",
-      "author": "abc_1",
-      "content": "UI 테스트는 어떻게 진행하나요",
-      "createdAt": "2022-03-01"
-    },
-    {
-      "id": 2,
-      "profile_url": "https://picsum.photos/id/2/50/50",
-      "author": "abc_2",
-      "content": "막히면 대답은 빨리 해주나요",
-      "createdAt": "2022-03-02"
-    },
-    {
       "id": 3,
       "profile_url": "https://picsum.photos/id/3/50/50",
       "author": "abc_3",
@@ -34,13 +20,6 @@
       "author": "abc_5",
       "content": "Typescript는 어떤점에서 좋나요",
       "createdAt": "2022-03-05"
-    },
-    {
-      "id": 6,
-      "profile_url": "https://picsum.photos/id/6/50/50",
-      "author": "abc_6",
-      "content": "React 소스 배포는 보통 어떤식으로 하나요.",
-      "createdAt": "2022-03-06"
     },
     {
       "id": 7,
@@ -64,11 +43,11 @@
       "createdAt": "2022-03-09"
     },
     {
-      "id": 12,
-      "profile_url": "https://picsum.photos/id/12/50/50",
-      "author": "abc_12",
-      "content": "주변에 React 개발자 있나요",
-      "createdAt": "2022-03-12"
+      "id": 10,
+      "profile_url": "https://picsum.photos/id/10/50/50",
+      "author": "abc_10",
+      "content": "storybook은 무엇인가요.",
+      "createdAt": "2022-03-10"
     },
     {
       "id": 13,
@@ -120,18 +99,46 @@
       "createdAt": "2022-03-19"
     },
     {
-      "id": 20,
-      "profile_url": "https://picsum.photos/id/20/50/50",
-      "author": "abc_20",
-      "content": "Form 처리는 어떻게 하면 깔끔할까요",
-      "createdAt": "2022-03-20"
+      "content": "sfas",
+      "author": "adstda",
+      "createdAt": "gadsfas",
+      "id": 24
     },
     {
-      "id": 21,
-      "profile_url": "https://picsum.photos/id/21/50/50",
-      "author": "abc_21",
-      "content": "typescript도 배워 보려고 합니다. 어떻게 배우는게 빠를까요",
-      "createdAt": "2022-03-21"
+      "content": "teat",
+      "author": "gjge",
+      "createdAt": "2020-05-30",
+      "id": 25
+    },
+    {
+      "content": "fasdg",
+      "author": "tasd",
+      "createdAt": "asdfasdg",
+      "id": 26
+    },
+    {
+      "content": "sgadsf",
+      "author": "asdfda",
+      "createdAt": "asdgasdf",
+      "id": 27
+    },
+    {
+      "content": "asfadsg",
+      "author": "ast",
+      "createdAt": "dasfasdg",
+      "id": 28
+    },
+    {
+      "content": "dasfasg",
+      "author": "ast",
+      "createdAt": "dasfasgd",
+      "id": 29
+    },
+    {
+      "content": "dasfg",
+      "author": "asdt",
+      "createdAt": "asfasdg",
+      "id": 30
     }
   ]
 }

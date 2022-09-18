@@ -4,6 +4,7 @@ import FormContainer from "./containers/FormContainer";
 
 function App() {
 	const [isEdit, setIsEdit] = useState(false);
+
 	return (
 		<div>
 			<CommentListContainer setIsEdit={setIsEdit} />
