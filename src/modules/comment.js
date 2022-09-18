@@ -1,4 +1,4 @@
-import commentApi from "../api";
+import commentApi from "../services/api";
 
 const GET_COMMENTS = "comment/GET_COMMENT_LIST";
 const GET_COMMENTS_SUCCESS = "comment/GET_COMMENT_LIST_SUCCESS";
