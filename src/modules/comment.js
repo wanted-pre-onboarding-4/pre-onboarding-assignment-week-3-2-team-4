@@ -23,7 +23,7 @@ const initialState = {
   loading: false,
   error: null,
   page: 1,
-  numberPerPage: 3,
+  numberPerPage: 4,
 };
 export const pageClick = (page) => ({ type: PAGE_CLICK, page });
 
