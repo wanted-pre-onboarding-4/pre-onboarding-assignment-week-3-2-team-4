@@ -1,10 +1,10 @@
 import { combineReducers } from "redux";
 import commentReducer from "./comment";
-import editReducer from "./editList";
+import targetToEditReducer from "./targetToEdit";
 
 const rootReducer = combineReducers({
   comment: commentReducer,
-  editList: editReducer,
+  targetToEdit: targetToEditReducer,
 });
 
 export default rootReducer;
