@@ -6,16 +6,14 @@ import { getComments } from "../actions/comment";
 import CommentList from "../components/CommentList";
 
 function CommentListContainer() {
-	const comemnts = useSelector((state) => state.comment);
+	const comemnts = useSelector((state) => state.comment.comments);
 	const dispatch = useDispatch();
 
 	useEffect(() => {
 		dispatch(getComments());
 	}, []);
 
-	return (
-			<CommentList comments={comemnts} />
-	);
+	return <CommentList comments={comemnts} />;
 }
 
 export default CommentListContainer;

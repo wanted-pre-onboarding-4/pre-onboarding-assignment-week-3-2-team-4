@@ -26,17 +26,17 @@ const Page = styled.button`
 `;
 
 function PageList() {
-	const commentsLen = useSelector((state) => state.comment).length;
-  const pageNumber = useSelector(state => state.page)
-  const dispatch = useDispatch()
+	const commentsLen = useSelector((state) => state.comment.comments).length;
+	const pageNumber = useSelector((state) => state.page);
+	const dispatch = useDispatch();
 
-  const pageArray = Array.from(
+	const pageArray = Array.from(
 		{ length: Math.ceil(commentsLen / 4) },
 		(_, idx) => idx
 	);
 
 	const pageClickHandler = (page) => {
-		dispatch(selectPage(page))
+		dispatch(selectPage(page));
 	};
 
 	return (
@@ -46,9 +46,9 @@ function PageList() {
 					key={page}
 					active={page === pageNumber}
 					onClick={() => pageClickHandler(page)}
-          disabled={page === pageNumber}
+					disabled={page === pageNumber}
 				>
-					{page+1}
+					{page + 1}
 				</Page>
 			))}
 		</PageListStyle>
