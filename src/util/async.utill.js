@@ -1,3 +1,11 @@
+import {
+  DELETE_COMMENT,
+  DELETE_COMMENT_SUCCESS,
+  GET_COMMENTS_SUCCESS,
+  POST_COMMENT_SUCCESS,
+  PUT_COMMENT_SUCCESS,
+} from "../modules/comment";
+
 export const reducerUtils = {
   initial: (data = []) => ({
     loading: false,
@@ -28,30 +36,9 @@ export const createPromiseThunk = (type, promiseCreator) => {
     dispatch({ type });
     try {
       const { data: payload } = await promiseCreator(param);
-      switch (type) {
-        case "GET":
-          dispatch({ type: SUCCESS, payload });
-          break;
-        case "POST":
-          dispatch({
-            type: SUCCESS,
-            payload: {
-              profile_url: payload.profile_url,
-              author: payload.author,
-              content: payload.content,
-              createdAt: payload.createdAt,
-            },
-          });
-          break;
-        case "DELETE":
-          dispatch({ type: SUCCESS, payload: param });
-          break;
-        case "PUT":
-          dispatch({ type: SUCCESS, payload });
-          break;
-        default:
-          break;
-      }
+      type === DELETE_COMMENT
+        ? dispatch({ type: SUCCESS, payload: param })
+        : dispatch({ type: SUCCESS, payload });
     } catch (e) {
       dispatch({ type: ERROR, error: e });
     }
@@ -60,19 +47,20 @@ export const createPromiseThunk = (type, promiseCreator) => {
 
 const eachTypeSuccess = (type, payload, prevState) => {
   let result;
-  switch (type) {
-    case "GET":
+  let successType = `${type}_SUCCESS`;
+  switch (successType) {
+    case GET_COMMENTS_SUCCESS:
       result = reducerUtils.success(payload);
       break;
-    case "POST":
+    case POST_COMMENT_SUCCESS:
       result = reducerUtils.success([...prevState.data, payload]);
       break;
-    case "DELETE":
+    case DELETE_COMMENT_SUCCESS:
       result = reducerUtils.success(
         prevState.data.filter((comment) => comment.id !== payload)
       );
       break;
-    case "PUT":
+    case PUT_COMMENT_SUCCESS:
       result = reducerUtils.success(
         prevState.data.map((comment) =>
           comment.id !== payload.id
@@ -95,7 +83,6 @@ const eachTypeSuccess = (type, payload, prevState) => {
 
 export const handleAsyncAction = (type) => {
   const [SUCCESS, ERROR] = [`${type}_SUCCESS`, `${type}_ERROR`];
-
   return (state, action) => {
     switch (action.type) {
       case type:
@@ -104,7 +91,7 @@ export const handleAsyncAction = (type) => {
           ...reducerUtils.loading(),
         };
       case SUCCESS:
-        return eachTypeSuccess(type, action.payload, state);
+        return { ...state, ...eachTypeSuccess(type, action.payload, state) };
       case ERROR:
         return {
           ...state,
