@@ -1,5 +1,6 @@
 import axios from "axios";
 
+const baseURL = "http://localhost:4000/";
 const GET_COMMENTS = "comment/GET_COMMENT_LIST";
 const GET_COMMENTS_SUCCESS = "comment/GET_COMMENT_LIST_SUCCESS";
 const GET_COMMENTS_ERROR = "comment/GET_COMMENT_LIST_ERROR";
@@ -25,7 +26,7 @@ const initialStore = {
 export const getComments = () => async (dispatch) => {
 	dispatch({ type: GET_COMMENTS }); // 요청이 시작됨  (로딩 시작);
 	try {
-		const { data } = await axios.get("http://localhost:4000/comments");
+		const { data } = await axios.get(`${baseURL}comments`);
 
 		dispatch({ type: GET_COMMENTS_SUCCESS, comments: data }); // 성공
 	} catch (e) {
@@ -38,7 +39,7 @@ export const postComments = (props) => async (dispatch) => {
 	console.log();
 	dispatch({ type: POST_COMMENT }); // 요청이 시작됨  (로딩 시작);
 	try {
-		await axios.post("http://localhost:4000/comments", {
+		await axios.post(`${baseURL}comments`, {
 			profile_url,
 			content,
 			author,
@@ -55,7 +56,7 @@ export const deleteComments = (id) => async (dispatch) => {
 	console.log(id);
 	dispatch({ type: DELETE_COMMENT }); // 요청이 시작됨  (로딩 시작);
 	try {
-		await axios.delete(`http://localhost:4000/comments/${id}`);
+		await axios.delete(`${baseURL}comments/${id}`);
 		dispatch({ type: DELETE_COMMENT_SUCCESS }); // 성공
 	} catch (e) {
 		dispatch({ type: DELETE_COMMENT_ERROR, error: e }); // 실패

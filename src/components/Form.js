@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { postComments } from "../modules/comment";
 import { useDispatch } from "react-redux";
-function Form() {
+function Form({ isEdit, setIsEdit }) {
 	const [profileUrl, setProfileUrl] = useState("");
 	const [author, setAuthor] = useState("");
 	const [content, setContent] = useState("");
@@ -49,7 +49,11 @@ function Form() {
 					required
 				/>
 				<br />
-				<button>등록</button>
+				{isEdit === true ? (
+					<button>수정</button>
+				) : (
+					<button>등록</button>
+				)}
 			</form>
 		</FormStyle>
 	);

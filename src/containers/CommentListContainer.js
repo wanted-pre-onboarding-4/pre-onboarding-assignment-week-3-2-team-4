@@ -5,16 +5,16 @@ import { useSelector } from "react-redux";
 import CommentList from "../components/CommentList";
 import { getComments } from "../modules/comment";
 
-function CommentListContainer() {
-  const state = useSelector((state) => state.comment);
-  console.log(state);
-  const dispatch = useDispatch();
+function CommentListContainer({ setIsEdit }) {
+	const state = useSelector((state) => state.comment);
+	console.log(state);
+	const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getComments());
-  }, []);
+	useEffect(() => {
+		dispatch(getComments());
+	}, []);
 
-  return <CommentList comments={state.data} />;
+	return <CommentList comments={state.data} setIsEdit={setIsEdit} />;
 }
 
 export default CommentListContainer;

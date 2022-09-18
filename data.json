@@ -64,13 +64,6 @@
       "createdAt": "2022-03-09"
     },
     {
-      "id": 11,
-      "profile_url": "https://picsum.photos/id/11/50/50",
-      "author": "abc_11",
-      "content": "주변에 React 개발자 있나요",
-      "createdAt": "2022-03-11"
-    },
-    {
       "id": 12,
       "profile_url": "https://picsum.photos/id/12/50/50",
       "author": "abc_12",

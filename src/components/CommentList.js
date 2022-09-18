@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { deleteComments } from "../modules/comment";
 import PageList from "./PageList";
-function CommentList({ comments }) {
+function CommentList({ comments, setIsEdit }) {
 	const [limit, setLimit] = useState(10);
 	const [page, setPage] = useState(1);
 	const offset = (page - 1) * limit;
@@ -24,38 +24,37 @@ function CommentList({ comments }) {
 					<Content>{comment.content}</Content>
 
 					<Button>
-						<a>수정</a>
+						<a onClick={() => setIsEdit(true)}>수정</a>
 						<a onClick={() => HandleDelete(comment)}>삭제</a>
 					</Button>
 
 					<hr />
 				</Comment>
 			))}
-			{comments && (
-				<>
-					<PageList
-						total={comments.length}
-						limit={limit}
-						page={page}
-						setPage={setPage}
-					/>
-					<SelectBox>
-						<SelectText>페이지 당 게시물 수</SelectText>
-						<select
-							type="number"
-							value={limit}
-							onChange={({ target: { value } }) =>
-								setLimit(Number(value))
-							}
-						>
-							<option value="5">5</option>
-							<option value="10">10</option>
-							<option value="15">15</option>
-							<option value="20">20</option>
-						</select>
-					</SelectBox>
-				</>
-			)}
+
+			<>
+				<PageList
+					total={comments.length}
+					limit={limit}
+					page={page}
+					setPage={setPage}
+				/>
+				<SelectBox>
+					<SelectText>페이지 당 게시물 수</SelectText>
+					<select
+						type="number"
+						value={limit}
+						onChange={({ target: { value } }) =>
+							setLimit(Number(value))
+						}
+					>
+						<option value="5">5</option>
+						<option value="10">10</option>
+						<option value="15">15</option>
+						<option value="20">20</option>
+					</select>
+				</SelectBox>
+			</>
 		</>
 	);
 }

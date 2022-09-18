@@ -1,13 +1,13 @@
-import React from "react";
+import React, { createContext, useState } from "react";
 import CommentListContainer from "./containers/CommentListContainer";
-import PageListContainer from "./containers/PageListContainer";
 import FormContainer from "./containers/FormContainer";
 
 function App() {
+	const [isEdit, setIsEdit] = useState(false);
 	return (
 		<div>
-			<CommentListContainer />
-			<FormContainer />
+			<CommentListContainer setIsEdit={setIsEdit} />
+			<FormContainer setIsEdit={setIsEdit} isEdit={isEdit} />
 		</div>
 	);
 }
