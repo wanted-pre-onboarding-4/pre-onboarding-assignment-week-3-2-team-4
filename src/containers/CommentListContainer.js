@@ -1,14 +1,18 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import CommentList from "../components/CommentList";
-import { deleteComment, getComments, getPrevComment } from "../modules/comment";
+import {
+  deleteComment,
+  getComments,
+  getEditingComment,
+} from "../modules/comment";
 
 function CommentListContainer({ setIsEdit, setPage, comments }) {
   const dispatch = useDispatch();
 
   const handleCommentUpdate = (commentId) => {
     const targetComment = comments.find(({ id }) => id === Number(commentId));
-    dispatch(getPrevComment(targetComment));
+    dispatch(getEditingComment(targetComment));
   };
 
   const handleCommentDelete = React.useCallback(
@@ -17,7 +21,7 @@ function CommentListContainer({ setIsEdit, setPage, comments }) {
       dispatch(getComments());
       setPage(1);
     },
-    [dispatch]
+    [dispatch, setPage]
   );
 
   return (

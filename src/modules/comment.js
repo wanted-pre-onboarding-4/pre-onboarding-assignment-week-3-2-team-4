@@ -1,170 +1,97 @@
 import { commentApi } from "../lib/api";
+import createRequestThunk from "../util/createRequsetThunk";
 
-const GET_COMMENTS = "comment/GET_COMMENT_LIST";
-const GET_COMMENTS_SUCCESS = "comment/GET_COMMENT_LIST_SUCCESS";
-const GET_COMMENTS_ERROR = "comment/GET_COMMENT_LIST_ERROR";
+const API_REQUEST_TRIGGER = "comment/API_REQUEST_TRIGGER";
+const API_REQUEST_ERROR = "comment/API_REQUEST_ERROR";
 
-const POST_COMMENT = "comment/POST_COMMENT";
-const POST_COMMENT_SUCCESS = "comment/POST_COMMENT_SUCCESS";
-const POST_COMMENT_ERROR = "comment/POST_COMMENT_ERROR";
-
-const UPDATE_COMMENT = "comment/UPDATE_COMMENT";
-const UPDATE_COMMENT_SUCCESS = "comment/UPDATE_COMMENT_SUCCESS";
-const UPDATE_COMMENT_ERROR = "comment/UPDATE_COMMENT_ERROR";
-
-const UPDATE_PREV_COMMENT = "comment/UPDATE_PREV_COMMENT";
-const UPDATE_PREV_COMMENT_SUCCESS = "comment/UPDATE_PREV_COMMENT_SUCCESS";
-const UPDATE_PREV_COMMENT_ERROR = "comment/UPDATE_PREV_COMMENT_ERROR";
-
-const DELETE_COMMENT = "comment/DELETE_COMMENT";
-const DELETE_COMMENT_SUCCESS = "comment/DELETE_COMMENT_SUCCESS";
-const DELETE_COMMENT_ERROR = "comment/DELETE_COMMENT_ERROR";
+const GET_COMMENT = "comment/GET_COMMENT_LIST_SUCCESS";
+const GET_EDITING_COMMENT = "comment/GET_EDITING_COMMENT_SUCCESS";
+const POST_COMMENT = "comment/POST_COMMENT_SUCCESS";
+const UPDATE_COMMENT = "comment/UPDATE_COMMENT_SUCCESS";
+const DELETE_COMMENT = "comment/DELETE_COMMENT_SUCCESS";
 
 const initialStore = {
   data: [],
-  updatedData: {},
+  editingComment: {},
   loading: false,
   error: null,
 };
 
-export const getPrevComment = (formData) => async (dispatch) => {
-  dispatch({ type: UPDATE_PREV_COMMENT });
+export const getEditingComment = (formData) => async (dispatch) => {
+  dispatch({ type: API_REQUEST_TRIGGER });
   try {
-    dispatch({ type: UPDATE_PREV_COMMENT_SUCCESS, updatedData: formData });
+    dispatch({ type: GET_EDITING_COMMENT, payload: formData });
   } catch (e) {
-    dispatch({ type: UPDATE_PREV_COMMENT_ERROR, error: e });
+    dispatch({ type: API_REQUEST_ERROR, error: e });
   }
 };
 
-export const getComments = () => async (dispatch) => {
-  dispatch({ type: GET_COMMENTS }); // 요청이 시작됨  (로딩 시작);
-  try {
-    const { data } = await commentApi.getAllComments();
+export const getComments = createRequestThunk(
+  GET_COMMENT,
+  commentApi.getAllComments
+);
 
-    dispatch({ type: GET_COMMENTS_SUCCESS, comments: data }); // 성공
-  } catch (e) {
-    dispatch({ type: GET_COMMENTS_ERROR, error: e }); // 실패
-  }
-};
+export const postComment = createRequestThunk(
+  POST_COMMENT,
+  commentApi.postComment
+);
 
-export const postComment = (bodyData) => async (dispatch) => {
-  dispatch({ type: POST_COMMENT });
-  try {
-    const { data } = await commentApi.postComment(bodyData);
-    dispatch({ type: POST_COMMENT_SUCCESS, comment: data });
-  } catch (e) {
-    dispatch({ type: POST_COMMENT_ERROR, error: e });
-  }
-};
+export const deleteComment = createRequestThunk(
+  DELETE_COMMENT,
+  commentApi.deleteComment
+);
 
-export const deleteComment = (commentId) => async (dispatch) => {
-  dispatch({ type: DELETE_COMMENT });
-  try {
-    await commentApi.deleteComment(commentId);
-    dispatch({ type: DELETE_COMMENT_SUCCESS });
-  } catch (e) {
-    dispatch({ type: DELETE_COMMENT_ERROR, error: e });
-  }
-};
-
-export const updateComment = (commentId, bodyData) => async (dispatch) => {
-  dispatch({ type: UPDATE_COMMENT });
-  try {
-    await commentApi.updateComment(commentId, bodyData);
-    const { data } = await commentApi.getAllComments();
-    dispatch({ type: UPDATE_COMMENT_SUCCESS, comments: data });
-  } catch (e) {
-    dispatch({ type: UPDATE_COMMENT_ERROR });
-  }
-};
+export const updateComment = createRequestThunk(
+  UPDATE_COMMENT,
+  commentApi.updateComment
+);
 
 const commentReducer = (state = initialStore, action) => {
   switch (action.type) {
-    case GET_COMMENTS:
+    case API_REQUEST_TRIGGER:
       return {
         ...state,
         loading: true,
       };
-    case GET_COMMENTS_SUCCESS:
+    case API_REQUEST_ERROR:
       return {
         ...state,
         loading: false,
-        data: action.comments,
+        error: action.payload,
       };
-    case GET_COMMENTS_ERROR:
+    case GET_COMMENT:
       return {
         ...state,
         loading: false,
-        error: action.error,
+        data: action.payload,
       };
     case POST_COMMENT:
       return {
         ...state,
-        loading: true,
-      };
-    case POST_COMMENT_SUCCESS:
-      return {
-        ...state,
-        data: [...state.data, action.comment],
+        data: [...state.data, action.payload],
         loading: false,
-      };
-    case POST_COMMENT_ERROR:
-      return {
-        ...state,
-        loading: false,
-        error: action.error,
       };
     case DELETE_COMMENT:
       return {
         ...state,
-        loading: true,
-      };
-    case DELETE_COMMENT_SUCCESS:
-      return {
-        ...state,
         loading: false,
-      };
-    case DELETE_COMMENT_ERROR:
-      return {
-        ...state,
-        loading: false,
-        error: action.error,
       };
     case UPDATE_COMMENT:
+      const comments = [...state.data].map((comment) =>
+        comment.id !== action.payload.id ? comment : action.payload
+      );
+
       return {
         ...state,
-        loading: true,
-      };
-    case UPDATE_COMMENT_SUCCESS:
-      return {
-        ...state,
-        data: [...action.comments],
+        data: [...comments],
         loading: false,
-        updateComment: {},
+        editingComment: {},
       };
-    case UPDATE_COMMENT_ERROR:
-      return {
-        ...state,
-        loading: false,
-        error: action.error,
-        updateComment: {},
-      };
-    case UPDATE_PREV_COMMENT:
-      return {
-        ...state,
-        loading: true,
-      };
-    case UPDATE_PREV_COMMENT_SUCCESS:
+    case GET_EDITING_COMMENT:
       return {
         ...state,
         loading: false,
-        updatedData: Object.assign({}, action.updatedData),
-      };
-    case UPDATE_PREV_COMMENT_ERROR:
-      return {
-        ...state,
-        loading: false,
-        error: action.error,
+        editingComment: Object.assign({}, action.payload),
       };
     default:
       return state;

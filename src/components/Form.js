@@ -30,7 +30,7 @@ function Form({ isEdit, formData, handleInput, handleSubmit }) {
       <form onSubmit={handleSubmit}>
         <input
           onChange={handleInput}
-          value={formData.profileUrl}
+          value={formData.profileUrl || ""}
           default
           type='text'
           name='profileUrl'
@@ -40,7 +40,7 @@ function Form({ isEdit, formData, handleInput, handleSubmit }) {
         <br />
         <input
           onChange={handleInput}
-          value={formData.author}
+          value={formData.author || ""}
           type='text'
           name='author'
           placeholder='작성자'
@@ -48,7 +48,7 @@ function Form({ isEdit, formData, handleInput, handleSubmit }) {
         <br />
         <textarea
           onChange={handleInput}
-          value={formData.content}
+          value={formData.content || ""}
           name='content'
           placeholder='내용'
           required
@@ -56,7 +56,7 @@ function Form({ isEdit, formData, handleInput, handleSubmit }) {
         <br />
         <input
           onChange={handleInput}
-          value={formData.createdAt}
+          value={formData.createdAt || ""}
           type='text'
           name='createdAt'
           placeholder='2020-05-30'

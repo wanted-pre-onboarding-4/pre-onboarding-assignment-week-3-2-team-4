@@ -11,7 +11,7 @@ const INITIAL_FORM_DATA = {
 };
 
 function FormContainer({ setIsEdit, setPage, isEdit }) {
-  const { updatedData } = useSelector((state) => state.comment);
+  const { editingComment } = useSelector((state) => state.comment);
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({ ...INITIAL_FORM_DATA });
 
@@ -28,14 +28,14 @@ function FormContainer({ setIsEdit, setPage, isEdit }) {
     };
 
     if (isEdit) {
-      dispatch(updateComment(updatedData.id, bodyData));
+      dispatch(updateComment(editingComment.id, bodyData));
     } else {
       dispatch(postComment(bodyData));
       setPage(1);
     }
 
     clearForm();
-  }, [formData, dispatch, isEdit, updatedData.id]);
+  }, [formData, dispatch, isEdit, editingComment, setPage]);
 
   const handleInput = (e) => {
     setFormData({
@@ -53,13 +53,13 @@ function FormContainer({ setIsEdit, setPage, isEdit }) {
   useEffect(() => {
     if (isEdit) {
       setFormData({
-        profileUrl: updatedData.profile_url,
-        author: updatedData.author,
-        content: updatedData.content,
-        createdAt: updatedData.createdAt,
+        profileUrl: editingComment.profile_url,
+        author: editingComment.author,
+        content: editingComment.content,
+        createdAt: editingComment.createdAt,
       });
     }
-  }, [isEdit, updatedData]);
+  }, [isEdit, editingComment]);
 
   return (
     <Form
