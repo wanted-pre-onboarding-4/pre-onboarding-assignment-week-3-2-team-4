@@ -5,21 +5,25 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import Form from "../components/Form";
 import { pageClick, postComment, putComment } from "../modules/comment";
-import { initializeEditList } from "../modules/editList";
+import { initializeEditComment } from "../modules/targetToEdit";
+
+const INITIAL_STATE = {
+  profile_url: "",
+  author: "",
+  content: "",
+  createdAt: "",
+};
 
 function FormContainer() {
   const dispatch = useDispatch();
-  const { comment, editList } = useSelector(({ comment, editList }) => ({
-    comment,
-    editList,
-  }));
+  const { comment, targetToEdit } = useSelector(
+    ({ comment, targetToEdit }) => ({
+      comment,
+      targetToEdit,
+    })
+  );
 
-  const [formInfo, setFormInfo] = useState({
-    profile_url: "",
-    author: "",
-    content: "",
-    createdAt: "",
-  });
+  const [formInfo, setFormInfo] = useState(INITIAL_STATE);
 
   const onChange = useCallback(
     (e) => {
@@ -47,12 +51,7 @@ function FormContainer() {
 
       dispatch(pageClick(1));
 
-      setFormInfo({
-        profile_url: "",
-        author: "",
-        content: "",
-        createdAt: "",
-      });
+      setFormInfo(INITIAL_STATE);
     },
     [formInfo]
   );
@@ -63,28 +62,28 @@ function FormContainer() {
       dispatch(
         putComment({
           ...formInfo,
-          id: editList.id,
+          id: targetToEdit.id,
         })
       );
-      dispatch(initializeEditList());
+      dispatch(initializeEditComment());
     },
-    [editList, comment, formInfo]
+    [targetToEdit, comment, formInfo]
   );
 
   useEffect(() => {
     setFormInfo({
-      profile_url: editList.profile_url,
-      author: editList.author,
-      content: editList.content,
-      createdAt: editList.createdAt,
+      profile_url: targetToEdit.profile_url,
+      author: targetToEdit.author,
+      content: targetToEdit.content,
+      createdAt: targetToEdit.createdAt,
     });
-  }, [editList]);
+  }, [targetToEdit]);
 
   return (
     <Form
-      isEditMode={Boolean(editList.id)}
+      isEditMode={Boolean(targetToEdit.id)}
       formInfo={formInfo}
-      onSubmit={editList.id ? onEditSubmit : onPostSubmit}
+      onSubmit={targetToEdit.id ? onEditSubmit : onPostSubmit}
       onChange={onChange}
     />
   );

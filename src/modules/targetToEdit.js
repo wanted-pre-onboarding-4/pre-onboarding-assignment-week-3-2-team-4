@@ -1,7 +1,7 @@
 const INITIALIZE = "editList/INITIALIZE";
 const CLICK_FIX_BTN = "editList/CLICK_FIX_BTN";
 
-export const initializeEditList = () => ({
+export const initializeEditComment = () => ({
   type: INITIALIZE,
 });
 
@@ -24,7 +24,7 @@ const initialState = {
   createdAt: "",
 };
 
-const editReducer = (state = initialState, action) => {
+const targetToEditReducer = (state = initialState, action) => {
   switch (action.type) {
     case INITIALIZE:
       return {
@@ -44,4 +44,4 @@ const editReducer = (state = initialState, action) => {
   }
 };
 
-export default editReducer;
+export default targetToEditReducer;

@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import CommentList from "../components/CommentList";
 import { deleteComment, getComments, pageClick } from "../modules/comment";
-import { clickFixBtn } from "../modules/editList";
+import { clickFixBtn } from "../modules/targetToEdit";
 
 function CommentListContainer() {
   const { data, page, numberPerPage } = useSelector((state) => state.comment);
