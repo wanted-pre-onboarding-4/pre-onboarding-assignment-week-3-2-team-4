@@ -1,4 +1,4 @@
-import axios from "axios";
+import commentApi from "../api";
 
 const GET_COMMENTS = "comment/GET_COMMENT_LIST";
 const GET_COMMENTS_SUCCESS = "comment/GET_COMMENT_LIST_SUCCESS";
@@ -16,26 +16,76 @@ const DELETE_COMMENT = "comment/DELETE_COMMENT";
 const DELETE_COMMENT_SUCCESS = "comment/DELETE_COMMENT_SUCCESS";
 const DELETE_COMMENT_ERROR = "comment/DELETE_COMMENT_ERROR";
 
-const initialStore = {
+const PAGE_CLICK = "comment/PAGE_CLICK";
+
+const initialState = {
   data: [],
   loading: false,
   error: null,
+  page: 1,
+  numberPerPage: 4,
 };
+export const pageClick = (page) => ({ type: PAGE_CLICK, page });
 
 export const getComments = () => async (dispatch) => {
   dispatch({ type: GET_COMMENTS }); // 요청이 시작됨  (로딩 시작);
   try {
-    const { data } = await axios.get(
-      "http://localhost:4000/comments" //
-    );
-
+    const { data } = await commentApi.get();
     dispatch({ type: GET_COMMENTS_SUCCESS, comments: data }); // 성공
   } catch (e) {
     dispatch({ type: GET_COMMENTS_ERROR, error: e }); // 실패
   }
 };
 
-const commentReducer = (state = initialStore, action) => {
+export const postComment =
+  ({ profile_url, author, content, createdAt }) =>
+  async (dispatch) => {
+    dispatch({ type: POST_COMMENT });
+    try {
+      const { data } = await commentApi.post({
+        profile_url,
+        author,
+        content,
+        createdAt,
+      });
+      dispatch({ type: POST_COMMENT_SUCCESS, comment: data });
+    } catch (e) {
+      dispatch({ type: POST_COMMENT_ERROR, error: e });
+    }
+  };
+
+export const deleteComment = (id) => async (dispatch) => {
+  dispatch({ type: DELETE_COMMENT });
+  try {
+    await commentApi.delte(id);
+    dispatch({ type: DELETE_COMMENT_SUCCESS, id });
+  } catch (e) {
+    dispatch({ type: DELETE_COMMENT_ERROR, error: e });
+  }
+};
+
+export const putComment =
+  ({ id, profile_url, author, content, createdAt }) =>
+  async (dispatch) => {
+    dispatch({ type: PUT_COMMENT });
+    try {
+      await commentApi.put({
+        id,
+        profile_url,
+        author,
+        content,
+        createdAt,
+      });
+      dispatch({
+        type: PUT_COMMENT_SUCCESS,
+        fixComment: { id, info: { profile_url, author, content, createdAt } },
+      });
+    } catch (e) {
+      dispatch({ type: POST_COMMENT_ERROR, error: e });
+    }
+  };
+
+const commentReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_COMMENTS:
       return {
@@ -53,6 +103,65 @@ const commentReducer = (state = initialStore, action) => {
         ...state,
         loading: false,
         error: action.error,
+      };
+    case POST_COMMENT:
+      return {
+        ...state,
+        loading: true,
+      };
+    case POST_COMMENT_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        data: [...state.data, action.comment],
+      };
+    case POST_COMMENT_ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: action.error,
+      };
+
+    case DELETE_COMMENT:
+      return {
+        ...state,
+        loading: true,
+      };
+    case DELETE_COMMENT_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        data: state.data.filter((comment) => comment.id !== action.id),
+      };
+    case DELETE_COMMENT_ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: action.error,
+      };
+    case PUT_COMMENT:
+      return {
+        ...state,
+        loading: true,
+      };
+    case PUT_COMMENT_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        data: state.data.map((comment) =>
+          comment.id !== action.fixComment.id ? comment : action.fixComment.info
+        ),
+      };
+    case PUT_COMMENT_ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: action.error,
+      };
+    case PAGE_CLICK:
+      return {
+        ...state,
+        page: action.page,
       };
     default:
       return state;
