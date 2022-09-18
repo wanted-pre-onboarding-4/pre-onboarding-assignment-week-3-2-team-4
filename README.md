@@ -43,6 +43,22 @@
 - [Git-Flow](https://github.com/wanted-pre-onboarding-4/Fruitte/wiki/Convention-&-Git-Flow#git-flow)
 - [Commit-Convention](https://github.com/wanted-pre-onboarding-4/Fruitte/wiki/Convention-&-Git-Flow#commit-convention)
 
+
+## 💡 Redux-Toolkit을 사용하지 않은 이유
+#### 1. RTK는 redux를 쉽게 사용하도록 만들어주는 도구 모음입니다. 
+다시 말해, redux를 사용하고 **redux가 가지고 있던 불편함들을 해결하는 데 도움을 주는 도구**입니다.<br />
+그렇기 때문에 redux를 사용해보고 redux-toolkit을 사용하는 것이 redux-toolkit이 세상에 나온 이유를 제대로 알 수 있다고 생각했습니다.
+<br />
+#### 2. 모든 팀원이 redux에 대해 같은 이해도를 가지고 있지 않았습니다.
+지난 과제에서 저희는 typescript로 프로젝트를 진행했습니다.<br />
+하지만 타입 스크립트에 대한 이해도가 각각 다르다 보니 프로젝트가 제대로 진행될 수 없었고 제대로 된 동료 학습 또한 이루어질 수 없었습니다.<br />
+그렇기 때문에 저희 팀은 자연스레 먼저 redux를 학습한 후 프로젝트를 구현하는 방향으로 진행하게 됐습니다.
+<br />
+#### 3. redux로 구현한 프로젝트를 RDK를 사용하여 리팩토링 하는 경험을 할 수 있다고 생각했습니다.
+먼저 redux로 요구 사항들을 모두 구현한 다음 RDK를 이용하여 프로젝트를 리팩토링하면서 RDK가 줄 수 있는 편리함을 직접 느껴보는 것이 좋을 것이라고 생각했습니다.
+<br />
+<br />
+**위와 같은 이유로 공식 문서에서조차 추천하는 RDK를 사용하여 프로젝트를 진행하지 않았고 추후 RDK를 이용하여 리팩토링 작업을 할 예정입니다.**
 ## 🖥 Getting Started
 
 1. `Clone` the repository
