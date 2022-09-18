@@ -3,20 +3,26 @@ import {
 	CREATE_COMMENT,
 	UPDATE_COMMENT,
 	DELETE_COMMENT,
+	SELECT_COMMENT
 } from "../actions/types";
 
-const initialState = [];
+const initialState = {
+	comments : [],
+	selectedCommentId : null
+};
 
-const commentReducerFn = (comments = initialState, action) => {
+const commentReducerFn = (state = initialState, action) => {
 	const { type, payload } = action;
 
 	switch (type) {
 		case GET_COMMENTS:
-			return payload;
+			return {...state ,  comments: payload}
+		case SELECT_COMMENT:
+			return {...state, selectedCommentId : payload }
 		case CREATE_COMMENT:
-			return [payload, ...comments];
+			return {...state , comments : [payload, ...state.comments]};
 		case UPDATE_COMMENT:
-			return comments.map((comment) => {
+			return state.map((comment) => {
 				if (comment.id === payload.id) {
 					return {
 						...comment,
@@ -26,12 +32,11 @@ const commentReducerFn = (comments = initialState, action) => {
 				return comment;
 			});
 		case DELETE_COMMENT:
-
-			return comments.filter(({id})=> {
+			return state.filter(({id})=> {
 				return id !== payload.commentId
 			});
 		default:
-			return comments;
+			return state;
 	}
 };
 
