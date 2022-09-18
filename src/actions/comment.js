@@ -44,10 +44,9 @@ export const updateComment =
 	(commentId, updatedComment) => async (dispatch) => {
 		try {
 			const res = await commentServices.update(commentId, updatedComment);
-
 			dispatch({
 				type: UPDATE_COMMENT,
-				payload: updatedComment,
+				payload: res.data,
 			});
 
 			return await res.data;

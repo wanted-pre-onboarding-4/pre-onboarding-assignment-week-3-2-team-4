@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { deleteComment } from "../actions/comment";
+import { deleteComment, getComment } from "../actions/comment";
 import { selectPage } from "../actions/page";
 
 const Comment = styled.div`
@@ -42,6 +42,9 @@ const Button = styled.div`
 function CommentList({ comments }) {
   const dispatch = useDispatch()
   const pageNumber = useSelector(state => state.page)
+	const updateHandler = (id) => {
+		dispatch(getComment(id))
+	}
 
   const deleteHandler = (id) => {
     const confirm = window.confirm("삭제 하시겠습니까?") 
@@ -63,7 +66,7 @@ function CommentList({ comments }) {
 			<Content>{content}</Content>
 
 			<Button>
-				<a>수정</a>
+				<a onClick={()=>updateHandler(id)}>수정</a>
 				<a onClick={()=>deleteHandler(id)}>삭제</a>
 			</Button>
 

@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { createComment, updateComment } from "../actions/comment";
+import { createComment, getComment, updateComment } from "../actions/comment";
 import { selectPage } from "../actions/page";
 
 import CommentServices from "../services/comment";
@@ -40,6 +40,7 @@ function Form() {
 	});
 
 	const commentId = useSelector((state) => state.comment.selectedCommentId);
+
 	useEffect(() => {
 		const getComment = async () => {
 			const res = await CommentServices.get(commentId);
@@ -53,10 +54,13 @@ function Form() {
 	const submitHandler = (e) => {
 		e.preventDefault();
 		if (!commentId) {
-			console.log(formData);
 			dispatch(createComment(formData));
 			dispatch(selectPage(0));
-		} else dispatch(updateComment(commentId, formData));
+		} else
+		{
+			dispatch(getComment(null))
+			dispatch(updateComment(commentId, formData))
+		} 
 
 		setFormData({
 			profile_url: "",

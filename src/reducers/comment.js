@@ -22,15 +22,13 @@ const commentReducerFn = (state = initialState, action) => {
 		case CREATE_COMMENT:
 			return {...state , comments : [payload, ...state.comments]};
 		case UPDATE_COMMENT:
-			return state.map((comment) => {
+			const updateComment = state.comments.map(comment=>{
 				if (comment.id === payload.id) {
-					return {
-						...comment,
-						payload,
-					};
+					return payload
 				}
 				return comment;
-			});
+			})
+			return {...state, comments : updateComment}
 		case DELETE_COMMENT:
 			const comments = state.comments.filter(({id})=> {
 				return id !== payload.commentId
