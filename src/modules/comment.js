@@ -17,46 +17,74 @@ const DELETE_COMMENT_SUCCESS = "comment/DELETE_COMMENT_SUCCESS";
 const DELETE_COMMENT_ERROR = "comment/DELETE_COMMENT_ERROR";
 
 const initialStore = {
-  data: [],
-  loading: false,
-  error: null,
+	data: [],
+	loading: false,
+	error: null,
 };
 
 export const getComments = () => async (dispatch) => {
-  dispatch({ type: GET_COMMENTS }); // 요청이 시작됨  (로딩 시작);
-  try {
-    const { data } = await axios.get(
-      "http://localhost:4000/comments" //
-    );
+	dispatch({ type: GET_COMMENTS }); // 요청이 시작됨  (로딩 시작);
+	try {
+		const { data } = await axios.get("http://localhost:4000/comments");
 
-    dispatch({ type: GET_COMMENTS_SUCCESS, comments: data }); // 성공
-  } catch (e) {
-    dispatch({ type: GET_COMMENTS_ERROR, error: e }); // 실패
-  }
+		dispatch({ type: GET_COMMENTS_SUCCESS, comments: data }); // 성공
+	} catch (e) {
+		dispatch({ type: GET_COMMENTS_ERROR, error: e }); // 실패
+	}
+};
+
+export const postComments = (props) => async (dispatch) => {
+	const { profile_url, content, author, createdAt } = props;
+	console.log();
+	dispatch({ type: POST_COMMENT }); // 요청이 시작됨  (로딩 시작);
+	try {
+		await axios.post("http://localhost:4000/comments", {
+			profile_url,
+			content,
+			author,
+			createdAt,
+		});
+
+		dispatch({ type: POST_COMMENT_SUCCESS }); // 성공
+	} catch (e) {
+		dispatch({ type: POST_COMMENT_ERROR, error: e }); // 실패
+	}
+};
+
+export const deleteComments = (id) => async (dispatch) => {
+	console.log(id);
+	dispatch({ type: DELETE_COMMENT }); // 요청이 시작됨  (로딩 시작);
+	try {
+		await axios.delete(`http://localhost:4000/comments/${id}`);
+		dispatch({ type: DELETE_COMMENT_SUCCESS }); // 성공
+	} catch (e) {
+		dispatch({ type: DELETE_COMMENT_ERROR, error: e }); // 실패
+	}
 };
 
 const commentReducer = (state = initialStore, action) => {
-  switch (action.type) {
-    case GET_COMMENTS:
-      return {
-        ...state,
-        loading: true,
-      };
-    case GET_COMMENTS_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        data: action.comments,
-      };
-    case GET_COMMENTS_ERROR:
-      return {
-        ...state,
-        loading: false,
-        error: action.error,
-      };
-    default:
-      return state;
-  }
+	switch (action.type) {
+		case GET_COMMENTS:
+			return {
+				...state,
+				loading: true,
+			};
+		case GET_COMMENTS_SUCCESS:
+			return {
+				...state,
+				loading: false,
+				data: action.comments,
+			};
+		case GET_COMMENTS_ERROR:
+			return {
+				...state,
+				loading: false,
+				error: action.error,
+			};
+
+		default:
+			return state;
+	}
 };
 
 export default commentReducer;
