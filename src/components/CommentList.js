@@ -1,36 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { deleteComments } from "../modules/comment";
-import { getComments } from "../modules/comment";
-
-// 임시 데이터 입니다. 코드 작성시 data 부분을 지워주세요
-
+import PageList from "./PageList";
 function CommentList({ comments }) {
+	const [limit, setLimit] = useState(10);
+	const [page, setPage] = useState(1);
+	const offset = (page - 1) * limit;
 	const dispatch = useDispatch();
-
 	function HandleDelete(comment) {
-		console.log(comment.id);
 		dispatch(deleteComments(comment.id));
 	}
-	return comments.map((comment, key) => (
-		<Comment key={key}>
-			<img src={comment.profile_url} alt="" />
+	return (
+		<>
+			{comments.slice(offset, offset + limit).map((comment, key) => (
+				<Comment key={key}>
+					<img src={comment.profile_url} alt="" />
 
-			{comment.author}
+					{comment.author}
 
-			<CreatedAt>{comment.createdAt}</CreatedAt>
+					<CreatedAt>{comment.createdAt}</CreatedAt>
 
-			<Content>{comment.content}</Content>
+					<Content>{comment.content}</Content>
 
-			<Button>
-				<a>수정</a>
-				<a onClick={() => HandleDelete(comment)}>삭제</a>
-			</Button>
+					<Button>
+						<a>수정</a>
+						<a onClick={() => HandleDelete(comment)}>삭제</a>
+					</Button>
 
-			<hr />
-		</Comment>
-	));
+					<hr />
+				</Comment>
+			))}
+			{comments && (
+				<PageList
+					total={comments.length}
+					limit={limit}
+					page={page}
+					setPage={setPage}
+				/>
+			)}
+		</>
+	);
 }
 
 export default CommentList;

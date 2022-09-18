@@ -4,13 +4,12 @@ import PageListContainer from "./containers/PageListContainer";
 import FormContainer from "./containers/FormContainer";
 
 function App() {
-  return (
-    <div>
-      <CommentListContainer />
-      <PageListContainer />
-      <FormContainer />
-    </div>
-  );
+	return (
+		<div>
+			<CommentListContainer />
+			<FormContainer />
+		</div>
+	);
 }
 
 export default App;
