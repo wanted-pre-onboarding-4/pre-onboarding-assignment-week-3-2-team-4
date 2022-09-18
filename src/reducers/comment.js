@@ -32,9 +32,10 @@ const commentReducerFn = (state = initialState, action) => {
 				return comment;
 			});
 		case DELETE_COMMENT:
-			return state.filter(({id})=> {
+			const comments = state.comments.filter(({id})=> {
 				return id !== payload.commentId
-			});
+			})
+			return {...state, comments}
 		default:
 			return state;
 	}
