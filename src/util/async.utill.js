@@ -63,14 +63,7 @@ const eachTypeSuccess = (type, payload, prevState) => {
     case PUT_COMMENT_SUCCESS:
       result = reducerUtils.success(
         prevState.data.map((comment) =>
-          comment.id !== payload.id
-            ? comment
-            : {
-                profile_url: payload.profile_url,
-                author: payload.author,
-                content: payload.content,
-                createdAt: payload.createdAt,
-              }
+          comment.id !== payload.id ? comment : payload
         )
       );
     default:
