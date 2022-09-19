@@ -9,7 +9,8 @@
 #### 2022-09-16 ~ 2022-09-19
 
 ## 🎬 프로젝트 데모
-![onboarding-assignment-week-3-2-team-4](https://user-images.githubusercontent.com/71430291/190939161-02fc34e9-2255-4f85-804b-3929b733d5b0.gif)
+![ver2](https://user-images.githubusercontent.com/71430291/190939426-ffb2f597-c974-422d-975d-3e73443a9628.gif)
+
 
 ## :nut_and_bolt: 구현 기능
 
