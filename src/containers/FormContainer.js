@@ -1,6 +1,4 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import { useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Form from "../components/Form";
 import { pageClick, postComment, putComment } from "../modules/comment";
