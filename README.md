@@ -42,8 +42,8 @@
 
 ## 📖 WiKi
 
-- [Git-Flow](https://github.com/wanted-pre-onboarding-4/Fruitte/wiki/Convention-&-Git-Flow#git-flow)
-- [Commit-Convention](https://github.com/wanted-pre-onboarding-4/Fruitte/wiki/Convention-&-Git-Flow#commit-convention)
+- [Git-Flow](https://github.com/wanted-pre-onboarding-4/pre-onboarding-assignment-week-3-2-team-4/wiki/Convention-&-Git-Flow#git-flow)
+- [Commit-Convention](https://github.com/wanted-pre-onboarding-4/pre-onboarding-assignment-week-3-2-team-4/wiki/Convention-&-Git-Flow#commit-convention)
 
 
 ## 💡 Redux-Toolkit을 사용하지 않은 이유
