@@ -1,8 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useCallback } from "react";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Form from "../components/Form";
 import { pageClick, postComment, putComment } from "../modules/comment";
 import { initializeEditComment } from "../modules/targetToEdit";

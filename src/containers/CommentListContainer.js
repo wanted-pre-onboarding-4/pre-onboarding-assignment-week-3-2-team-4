@@ -1,8 +1,7 @@
 import React from "react";
 import { useCallback } from "react";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CommentList from "../components/CommentList";
 import { deleteComment, getComments, pageClick } from "../modules/comment";
 import { clickFixBtn } from "../modules/targetToEdit";

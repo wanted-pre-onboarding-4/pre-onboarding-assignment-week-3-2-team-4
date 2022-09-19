@@ -1,7 +1,6 @@
 import React from "react";
 import { useCallback } from "react";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import PageList from "../components/PageList";
 import { pageClick } from "../modules/comment";
 
