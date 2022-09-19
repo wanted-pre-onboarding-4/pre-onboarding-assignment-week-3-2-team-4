@@ -1,6 +1,21 @@
 import React from "react";
 import styled from "styled-components";
 
+function PageList({ onPageClick, allPage, curPage }) {
+  const pageArray = Array.from({ length: allPage }, (_, number) => (
+    <Page
+      onClick={onPageClick}
+      data-id={number + 1}
+      active={number + 1 === curPage}
+      key={number + 1}
+    >
+      {number + 1}
+    </Page>
+  ));
+
+  return <PageListStyle>{pageArray}</PageListStyle>;
+}
+
 const PageListStyle = styled.div`
   margin-bottom: 20px;
   text-align: center;
@@ -20,20 +35,5 @@ const Page = styled.button`
   `}
   margin-right: 3px;
 `;
-
-function PageList({ onPageClick, allPage, curPage }) {
-  const pageArray = Array.from({ length: allPage }, (_, number) => (
-    <Page
-      onClick={onPageClick}
-      data-id={number + 1}
-      active={number + 1 === curPage}
-      key={number + 1}
-    >
-      {number + 1}
-    </Page>
-  ));
-
-  return <PageListStyle>{pageArray}</PageListStyle>;
-}
 
 export default PageList;

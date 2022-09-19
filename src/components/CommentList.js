@@ -1,6 +1,31 @@
 import React from "react";
 import styled from "styled-components";
 
+function CommentList({ onFixClick, onDeleteClick, comments }) {
+  return comments.map((comment, key) => (
+    <Comment key={key}>
+      <img src={comment.profile_url} alt="" />
+
+      {comment.author}
+
+      <CreatedAt>{comment.createdAt}</CreatedAt>
+
+      <Content>{comment.content}</Content>
+
+      <Button>
+        <a data-id={comment.id} onClick={onFixClick}>
+          수정
+        </a>
+        <a data-id={comment.id} onClick={onDeleteClick}>
+          삭제
+        </a>
+      </Button>
+
+      <hr />
+    </Comment>
+  ));
+}
+
 const Comment = styled.div`
   padding: 7px 10px;
   text-align: left;
@@ -34,30 +59,5 @@ const Button = styled.div`
     cursor: pointer;
   }
 `;
-
-function CommentList({ onFixClick, onDeleteClick, comments }) {
-  return comments.map((comment, key) => (
-    <Comment key={key}>
-      <img src={comment.profile_url} alt="" />
-
-      {comment.author}
-
-      <CreatedAt>{comment.createdAt}</CreatedAt>
-
-      <Content>{comment.content}</Content>
-
-      <Button>
-        <a data-id={comment.id} onClick={onFixClick}>
-          수정
-        </a>
-        <a data-id={comment.id} onClick={onDeleteClick}>
-          삭제
-        </a>
-      </Button>
-
-      <hr />
-    </Comment>
-  ));
-}
 
 export default CommentList;
