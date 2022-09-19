@@ -22,15 +22,12 @@ function FormContainer() {
 
   const [formInfo, setFormInfo] = useState(INITIAL_STATE);
 
-  const onChange = useCallback(
-    (e) => {
-      const {
-        target: { name, value },
-      } = e;
-      setFormInfo((prev) => ({ ...prev, [name]: value }));
-    },
-    [formInfo]
-  );
+  const onChange = useCallback((e) => {
+    const {
+      target: { name, value },
+    } = e;
+    setFormInfo((prev) => ({ ...prev, [name]: value }));
+  }, []);
 
   const onPostSubmit = useCallback(
     (e) => {
@@ -50,7 +47,7 @@ function FormContainer() {
 
       setFormInfo(INITIAL_STATE);
     },
-    [formInfo]
+    [formInfo, dispatch, comment.data.length]
   );
 
   const onEditSubmit = useCallback(
@@ -64,7 +61,7 @@ function FormContainer() {
       );
       dispatch(initializeEditComment());
     },
-    [targetToEdit, comment, formInfo]
+    [targetToEdit, formInfo, dispatch]
   );
 
   useEffect(() => {

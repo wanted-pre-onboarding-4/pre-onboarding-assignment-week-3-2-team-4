@@ -8,11 +8,11 @@
       "id": 3
     },
     {
-      "id": 4,
       "profile_url": "https://picsum.photos/id/4/50/50",
       "author": "abc_4",
       "content": "Javascript 기초가 부족한데 좋은 가이드 있나요",
-      "createdAt": "2022-03-04"
+      "createdAt": "2022-03-04",
+      "id": 4
     },
     {
       "profile_url": "https://picsum.photos/id/6/50/50",
@@ -22,11 +22,11 @@
       "id": 6
     },
     {
-      "id": 7,
       "profile_url": "https://picsum.photos/id/7/50/50",
       "author": "abc_7",
-      "content": "주변에 React 개발자 있나요",
-      "createdAt": "2022-03-07"
+      "content": "주변에 React 개발자 있나요\n",
+      "createdAt": "2022-03-07",
+      "id": 7
     },
     {
       "id": 8,
@@ -118,13 +118,6 @@
       "author": "abc_22",
       "content": "주변에 React 개발자 있나요",
       "createdAt": "2022-03-22"
-    },
-    {
-      "profile_url": "https://picsum.photos/id/18/50/50",
-      "author": "ㅁㄴㅇㄹ",
-      "content": "ㅁㄴㅇㄹ",
-      "createdAt": "ㅁㄴㅇㄹ",
-      "id": 23
     }
   ]
 }

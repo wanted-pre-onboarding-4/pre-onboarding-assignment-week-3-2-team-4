@@ -4,23 +4,18 @@ import styled from "styled-components";
 function CommentList({ onFixClick, onDeleteClick, comments }) {
   return comments.map((comment, key) => (
     <Comment key={key}>
-      <img src={comment.profile_url} alt="" />
-
+      <img src={comment.profile_url} alt='' />
       {comment.author}
-
       <CreatedAt>{comment.createdAt}</CreatedAt>
-
       <Content>{comment.content}</Content>
-
       <Button>
-        <a data-id={comment.id} onClick={onFixClick}>
+        <button data-id={comment.id} onClick={onFixClick}>
           수정
-        </a>
-        <a data-id={comment.id} onClick={onDeleteClick}>
+        </button>
+        <button data-id={comment.id} onClick={onDeleteClick}>
           삭제
-        </a>
+        </button>
       </Button>
-
       <hr />
     </Comment>
   ));
@@ -51,12 +46,13 @@ const Content = styled.div`
 const Button = styled.div`
   text-align: right;
   margin: 10px 0;
-  & > a {
+  & > button {
     margin-right: 10px;
     padding: 0.375rem 0.75rem;
     border-radius: 0.25rem;
     border: 1px solid lightgray;
     cursor: pointer;
+    background-color: white;
   }
 `;
 

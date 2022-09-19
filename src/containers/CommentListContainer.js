@@ -8,12 +8,15 @@ function CommentListContainer() {
   const { data, page, numberPerPage } = useSelector((state) => state.comment);
   const dispatch = useDispatch();
 
-  const onDeleteClick = useCallback((e) => {
-    const id = +e.target.getAttribute("data-id");
-    if (!id) return;
-    dispatch(deleteComment(id));
-    dispatch(pageClick(1));
-  }, []);
+  const onDeleteClick = useCallback(
+    (e) => {
+      const id = +e.target.getAttribute("data-id");
+      if (!id) return;
+      dispatch(deleteComment(id));
+      dispatch(pageClick(1));
+    },
+    [dispatch]
+  );
 
   const onFixClick = useCallback(
     (e) => {
@@ -22,12 +25,12 @@ function CommentListContainer() {
       const findComment = data.find((comment) => comment.id === id);
       dispatch(clickFixBtn(findComment));
     },
-    [data]
+    [data, dispatch]
   );
 
   useEffect(() => {
     dispatch(getComments());
-  }, []);
+  }, [dispatch]);
 
   return (
     <CommentList

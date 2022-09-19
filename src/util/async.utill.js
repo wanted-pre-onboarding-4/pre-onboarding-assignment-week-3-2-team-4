@@ -28,7 +28,6 @@ export const reducerUtils = {
 };
 
 // Promise에 기반한 Thunk 함수를 만들어주는 함수
-
 export const createPromiseThunk = (type, promiseCreator) => {
   const [SUCCESS, ERROR] = [`${type}_SUCCESS`, `${type}_ERROR`];
 
@@ -46,34 +45,28 @@ export const createPromiseThunk = (type, promiseCreator) => {
 };
 
 const eachTypeSuccess = (type, payload, prevState) => {
-  let result;
   let successType = `${type}_SUCCESS`;
   switch (successType) {
     case GET_COMMENTS_SUCCESS:
-      result = reducerUtils.success(payload);
-      break;
+      return reducerUtils.success(payload);
     case POST_COMMENT_SUCCESS:
-      result = reducerUtils.success([...prevState.data, payload]);
-      break;
+      return reducerUtils.success([...prevState.data, payload]);
     case DELETE_COMMENT_SUCCESS:
-      result = reducerUtils.success(
+      return reducerUtils.success(
         prevState.data.filter((comment) => comment.id !== payload)
       );
-      break;
     case PUT_COMMENT_SUCCESS:
-      result = reducerUtils.success(
+      return reducerUtils.success(
         prevState.data.map((comment) =>
           comment.id !== payload.id ? comment : payload
         )
       );
     default:
-      break;
+      return prevState;
   }
-
-  return result;
 };
-// 비동기 통신 전용  reducer
 
+// 비동기 통신 전용  reducer
 export const handleAsyncAction = (type) => {
   const [SUCCESS, ERROR] = [`${type}_SUCCESS`, `${type}_ERROR`];
   return (state, action) => {
@@ -90,6 +83,8 @@ export const handleAsyncAction = (type) => {
           ...state,
           ...reducerUtils.error(action.payload),
         };
+      default:
+        return state;
     }
   };
 };

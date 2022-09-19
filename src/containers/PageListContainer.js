@@ -8,10 +8,13 @@ function PageListContainer() {
 
   const dispatch = useDispatch();
 
-  const onPageClick = useCallback((e) => {
-    const id = +e.target.getAttribute("data-id");
-    dispatch(pageClick(id));
-  }, []);
+  const onPageClick = useCallback(
+    (e) => {
+      const id = +e.target.getAttribute("data-id");
+      dispatch(pageClick(id));
+    },
+    [dispatch]
+  );
 
   return (
     <PageList
